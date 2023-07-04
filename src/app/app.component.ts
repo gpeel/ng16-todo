@@ -12,16 +12,16 @@ export class AppComponent {
   // remainingTodos: number = 0;
   newTodoLabel: string = '';
 
-  tasks: Todo[] = [
+  todos: Todo[] = [
     {id: 0, label: 'Go drink beers', completed: false}, // duck typing works fine!, but beware of id
     TodoUtils.createTodo('Sleep', true),
-    TodoUtils.createTodo('Play sports')
-    // new Todo(' Sortir ')
+    TodoUtils.createTodo('Play sports'),
+    TodoUtils.createTodo('Go to Mars'),
   ];
 
-  removeTodo(task: Todo): void {
-    console.log('REMOVE in APP', task);
-    this.tasks.splice(this.tasks.indexOf(task), 1);
+  removeTodo(todo: Todo): void {
+    console.log('REMOVE in APP', todo);
+    this.todos.splice(this.todos.indexOf(todo), 1);
   }
 
   addTodo(event: Event): void {
@@ -30,21 +30,21 @@ export class AppComponent {
     console.log('addTodo IN with target.value', input.value);
     if (input.value.trim()) {
       console.log('addTodo ok because label not empty');
-      const task = TodoUtils.createTodo(input.value.trim());
-      this.tasks.push(task);
+      const todo = TodoUtils.createTodo(input.value.trim());
+      this.todos.push(todo);
       input.value = '';
     }
     this.newTodoLabel = '';
   }
 
   toggleAll(valueChecked: boolean): void {
-    this.tasks.forEach(task => task.completed = valueChecked);
+    this.todos.forEach(todo => todo.completed = valueChecked);
   }
 
   computeRemainingTodos(): number {
     console.log('COMPUTE remaining', count++);
 
-    return this.tasks.filter(task => !task.completed).length;
+    return this.todos.filter(todo => !todo.completed).length;
   }
 
 }

@@ -55,3 +55,7 @@
   height: 1.25em;
   @extend .border-2;
 }
+
+.line-through {
+  text-decoration-line: line-through;
+}
