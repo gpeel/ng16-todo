@@ -16,6 +16,15 @@
 .custom-header {
   width: 70%; /* Adjust the width as needed */
   margin: 0 auto; /* Center the header horizontally */
+  @extend .bg-light;
+  @extend .py-3;
+  @extend .rounded-container;
+}
+
+.custom-h1 {
+  @extend .text-center;
+  @extend .text-primary;
+  //@extend .font-weight-bold;
 }
 
 .custom-card {
@@ -23,6 +32,19 @@
   margin: 10px auto; /* Center the card horizontally and add margin for spacing */
 }
 
+// list-group-item d-flex align-items-center border-0 mb-2 rounded
+//
+.custom-li {
+  background-color: #f4f6f7;
+  @extend .list-group-item;
+  @extend .d-flex;
+  @extend .align-items-center;
+  @extend .mb-2;
+  @extend .border-0;
+  @extend .rounded;
+}
+
 .custom-padding {
+  @extend .p-2;
   margin-left: 25px;
 }
