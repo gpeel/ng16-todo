@@ -54,9 +54,10 @@
                       [ngClass]="{ 'line-through': todo.completed}"
                       class="custom-li d-flex align-items-center">
                     <div class="d-flex align-items-center flex-grow-1">
-                      <input [(ngModel)]="todo.completed" class="form-check-input me-2 toggle-all-checkbox"
+                      <input [(ngModel)]="todo.completed"
+                             [id]="'todo'+ idx" class="form-check-input me-2 toggle-all-checkbox"
                              type="checkbox">
-                      <span>{{ todo.label }}</span>
+                      <label [for]="'todo'+ idx">{{ todo.label }}</label>
                     </div>
                     <button (click)="removeTodo(todo)" class="btn btn-close btn-sm"></button>
                   </li>
