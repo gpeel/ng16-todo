@@ -5,41 +5,56 @@
 
         <header class="custom-header">
           <div class="container">
-            <h1 class="custom-h1 font-weight-bold">Todo App!</h1>
+            <h1 class="custom-h1">Todo App!</h1>
           </div>
         </header>
 
         <div class="card custom-card">
           <div class="card-body p-4">
 
-            <form class="todo-form-input">
+            <!--  Form to add new todo-->
+            <!--            <form class="todo-form-input">-->
+            <!--              <div class="form-outline flex-fill">-->
+            <!--                <input (keyup.enter)="addTodo($event.target.value, $event.target)" autocomplete="off" autofocus-->
+            <!--                       class="form-control"-->
+            <!--                       data-test="input-todo" placeholder="Type a new task ...">-->
+            <!--              </div>-->
+            <!--            </form>-->
+            <!--  Form to add new todo-->
+            
+            <!--  Form to add new todo-->
+            <form (ngSubmit)="addTodoFC()" class="todo-form-input">
               <div class="form-outline flex-fill">
-                <input (keyup.enter)="addTodo($event)" autocomplete="off" autofocus
+                <input [formControl]="inputFormControl" autocomplete="off"
+                       autofocus
                        class="form-control"
                        data-test="input-todo" placeholder="Type a new task ...">
               </div>
-              <button class="btn btn-info ms-2" data-test="add-button" type="button">Add</button>
+              <button class="custom-button" data-test="add-button" type="submit">Add</button>
             </form>
+            <!--  Form to add new todo-->
 
             <div class="d-flex align-items-center mb-4">
+              <!-- toggle all todos to completed or uncompleted-->
               <input (click)="toggleAll($any($event.target).checked )" class="me-3 form-check-input toggle-all-checkbox"
                      type="checkbox">
+              <!-- toggle all todos to completed or uncompleted-->
 
               <!-- Tabs navs -->
               <ul class="nav nav-tabs">
                 <li class="nav-item clickable">
                   <a (click)="setTasksFilterStatus(TODO_FILTER_ENUM.ALL)"
-                     [class.active]="isFilterStatus(TODO_FILTER_ENUM.ALL)"
+                     [class.myactive]="isFilterStatus(TODO_FILTER_ENUM.ALL)"
                      class="nav-link">All</a>
                 </li>
                 <li class="nav-item clickable">
                   <a (click)="setTasksFilterStatus(TODO_FILTER_ENUM.ACTIVE)"
-                     [class.active]="isFilterStatus(TODO_FILTER_ENUM.ACTIVE)"
+                     [class.myactive]="isFilterStatus(TODO_FILTER_ENUM.ACTIVE)"
                      class="nav-link">Active</a>
                 </li>
                 <li class="nav-item clickable">
                   <a (click)="setTasksFilterStatus(TODO_FILTER_ENUM.COMPLETED)"
-                     [class.active]="isFilterStatus(TODO_FILTER_ENUM.COMPLETED)"
+                     [class.myactive]="isFilterStatus(TODO_FILTER_ENUM.COMPLETED)"
                      class="nav-link">Completed</a>
                 </li>
               </ul>
@@ -52,10 +67,10 @@
                 <ul class="list-group mb-0">
                   <li *ngFor="let todo of (todos | todoFilterPipe:todosFilterChoice); index as idx"
                       [ngClass]="{ 'line-through': todo.completed}"
-                      class="custom-li d-flex align-items-center">
+                      class="custom-li">
                     <div class="d-flex align-items-center flex-grow-1">
                       <input [(ngModel)]="todo.completed"
-                             [id]="'todo'+ idx" class="form-check-input me-2 toggle-all-checkbox"
+                             [id]="'todo'+ idx" class="form-check-input me-2"
                              type="checkbox">
                       <label [for]="'todo'+ idx">{{ todo.label }}</label>
                     </div>

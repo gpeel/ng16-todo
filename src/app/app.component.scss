@@ -42,6 +42,7 @@
   @extend .mb-2;
   @extend .border-0;
   @extend .rounded;
+
 }
 
 .custom-padding {
@@ -58,4 +59,17 @@
 
 .line-through {
   text-decoration-line: line-through;
+}
+
+.custom-button {
+  @extend .btn;
+  @extend .btn-info;
+  @extend .ms-2;
+  background-color: lightblue;
+}
+
+.myactive {
+  //background-color: #0dc9ef;
+  font-weight: bold;
+  background-color: lightblue;
 }

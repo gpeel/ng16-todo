@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {FormControl} from '@angular/forms';
 import {Todo, TODO_FILTER_ENUM, TodoUtils} from './todo.model';
 
 let count = 0;
@@ -10,7 +11,8 @@ let count = 0;
 })
 export class AppComponent {
 
-  newTodoLabel: string = '';
+  // newTodoLabel: string = '';
+  inputFormControl = new FormControl();
   todosFilterChoice: TODO_FILTER_ENUM = TODO_FILTER_ENUM.ALL;
   TODO_FILTER_ENUM = TODO_FILTER_ENUM;
   todos: Todo[] = [
@@ -25,17 +27,26 @@ export class AppComponent {
     this.todos.splice(this.todos.indexOf(todo), 1);
   }
 
-  addTodo(event: Event): void {
-    console.log('EVENT', event);
-    const input = event.target as HTMLInputElement;
-    console.log('addTodo IN with target.value', input.value);
-    if (input.value.trim()) {
-      console.log('addTodo ok because label not empty');
-      const todo = TodoUtils.createTodo(input.value.trim());
+  // addTodo(value: string, input: HTMLInputElement): void {
+  //   // console.log('EVENT', event);
+  //   // const input = event.target as HTMLInputElement;
+  //   // console.log('addTodo IN with target.value', input.value);
+  //   if (value.trim()) {
+  //     console.log('addTodo ok because label not empty');
+  //     const todo = TodoUtils.createTodo(value.trim());
+  //     this.todos.push(todo);
+  //     input.value = '';
+  //   }
+  //   this.newTodoLabel = '';
+  // }
+
+  addTodoFC(): void {
+    console.log('in ADD TODO FC');
+    if (this.inputFormControl.value?.trim()) {
+      const todo = TodoUtils.createTodo(this.inputFormControl.value.trim());
       this.todos.push(todo);
-      input.value = '';
+      this.inputFormControl.setValue('');
     }
-    this.newTodoLabel = '';
   }
 
   toggleAll(valueChecked: boolean): void {
@@ -46,7 +57,7 @@ export class AppComponent {
   //   console.log('COMPUTE remaining', count++);
   //   return this.todos.filter(todo => !todo.completed).length;
   // }
-  
+
   setTasksFilterStatus(filter: TODO_FILTER_ENUM) {
     this.todosFilterChoice = filter;
   }
