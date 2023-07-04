@@ -1,9 +1,7 @@
-# My Usual setting for Angular 12
-
 ## eslint settings
 
-In ng12+ no more migration from tslint to eslint, the project comes with no linter at all, so you just need to add eslint
-with:
+In ng12+ no more migration from tslint to eslint, the project comes with no linter at all, so you just need to add
+eslint with:
 
         ng add @angular-eslint/schematics
 
@@ -29,7 +27,7 @@ All in one line
 - and disable tslint !
 - Go to Tools -> Actions On Save and check - reformat Code, Optimize Imports, Rearrange Code Run code cleanup and run
   eslint --fix
- 
+
 ## strict mode in template is not easy at first
 
 I tried to switch to false in tsconfig.json
