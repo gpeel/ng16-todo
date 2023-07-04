@@ -14,13 +14,17 @@
 
             <form class="todo-form-input">
               <div class="form-outline flex-fill">
-                <input class="form-control" id="form2" placeholder="Type a new task ..."/>
+                <input (keyup.enter)="addTodo($event)" autocomplete="off" autofocus
+                       class="form-control"
+                       data-test="input-todo" placeholder="Type a new task ...">
               </div>
-              <button class="btn btn-info ms-2" type="submit">Add</button>
+              <button class="btn btn-info ms-2" data-test="add-button" type="button">Add</button>
             </form>
 
             <div class="d-flex align-items-center mb-4">
-              <button class="btn btn-primary me-3">&#8964;</button>
+              <!--              <button class="btn btn-primary me-3">&#8964;</button>-->
+              <input (click)="toggleAll($any($event.target).checked )" class="me-3 form-check-input toggle-all-checkbox"
+                     type="checkbox">
 
               <!-- Tabs navs -->
               <ul class="nav nav-tabs">

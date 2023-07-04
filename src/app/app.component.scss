@@ -48,3 +48,10 @@
   @extend .p-2;
   margin-left: 25px;
 }
+
+
+.toggle-all-checkbox {
+  width: 1.25em;
+  height: 1.25em;
+  @extend .border-2;
+}
