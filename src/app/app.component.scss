@@ -1,0 +1,14 @@
+@import 'bootstrap/scss/bootstrap';
+
+.todo-form-input {
+  @extend .d-flex;
+  @extend .justify-content-center;
+  @extend .align-items-center;
+  @extend .mb-4;
+}
+
+.rounded-container {
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  padding: 20px;
+}

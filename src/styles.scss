@@ -2,3 +2,10 @@
 
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
+
+.bg-image {
+  background-image: url('/assets/unsplash-new-zealand.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh; /* Set the desired height */
+}
