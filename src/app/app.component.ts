@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Todo, TodoUtils} from './todo.model';
+import {Todo, TODO_FILTER_ENUM, TodoUtils} from './todo.model';
 
 let count = 0;
 
@@ -9,9 +9,10 @@ let count = 0;
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  // remainingTodos: number = 0;
-  newTodoLabel: string = '';
 
+  newTodoLabel: string = '';
+  todosFilterChoice: TODO_FILTER_ENUM = TODO_FILTER_ENUM.ALL;
+  TODO_FILTER_ENUM = TODO_FILTER_ENUM;
   todos: Todo[] = [
     {id: 0, label: 'Go drink beers', completed: false}, // duck typing works fine!, but beware of id
     TodoUtils.createTodo('Sleep', true),
@@ -41,10 +42,16 @@ export class AppComponent {
     this.todos.forEach(todo => todo.completed = valueChecked);
   }
 
-  computeRemainingTodos(): number {
-    console.log('COMPUTE remaining', count++);
-
-    return this.todos.filter(todo => !todo.completed).length;
+  // computeRemainingTodos(): number {
+  //   console.log('COMPUTE remaining', count++);
+  //   return this.todos.filter(todo => !todo.completed).length;
+  // }
+  
+  setTasksFilterStatus(filter: TODO_FILTER_ENUM) {
+    this.todosFilterChoice = filter;
   }
 
+  isFilterStatus(filter: TODO_FILTER_ENUM) {
+    return this.todosFilterChoice === filter;
+  }
 }

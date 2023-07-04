@@ -23,3 +23,7 @@ dependencies.
 ## with ng add
 
         ng add @ng-bootstrap/ng-bootstrap
+
+## font awesome
+
+        npm install --save @fortawesome/fontawesome-free

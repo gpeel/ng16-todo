@@ -1,4 +1,4 @@
-<section class="gradient-custom bg-image">
+<section class="bg-image">
   <div class="container py-5">
     <div class="row d-flex justify-content-center align-items-center">
       <div class="col col-8">
@@ -22,40 +22,51 @@
             </form>
 
             <div class="d-flex align-items-center mb-4">
-              <!--              <button class="btn btn-primary me-3">&#8964;</button>-->
               <input (click)="toggleAll($any($event.target).checked )" class="me-3 form-check-input toggle-all-checkbox"
                      type="checkbox">
 
               <!-- Tabs navs -->
               <ul class="nav nav-tabs">
-                <li class="nav-item">
-                  <a class="nav-link active">All</a>
+                <li class="nav-item clickable">
+                  <a (click)="setTasksFilterStatus(TODO_FILTER_ENUM.ALL)"
+                     [class.active]="isFilterStatus(TODO_FILTER_ENUM.ALL)"
+                     class="nav-link">All</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link">Active</a>
+                <li class="nav-item clickable">
+                  <a (click)="setTasksFilterStatus(TODO_FILTER_ENUM.ACTIVE)"
+                     [class.active]="isFilterStatus(TODO_FILTER_ENUM.ACTIVE)"
+                     class="nav-link">Active</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link">Completed</a>
+                <li class="nav-item clickable">
+                  <a (click)="setTasksFilterStatus(TODO_FILTER_ENUM.COMPLETED)"
+                     [class.active]="isFilterStatus(TODO_FILTER_ENUM.COMPLETED)"
+                     class="nav-link">Completed</a>
                 </li>
               </ul>
               <!-- Tabs navs -->
             </div>
 
             <!-- Tabs content -->
-            <div class="tab-content" id="ex1-content">
-              <div class="tab-pane fade show active" id="ex1-tabs-1">
+            <div class="tab-content">
+              <div class="">
                 <ul class="list-group mb-0">
-                  <li *ngFor="let todo of todos; index as idx" [ngClass]="{ 'line-through': todo.completed}"
-                      class="custom-li">
-                    <input [(ngModel)]="todo.completed"
-                           class="form-check-input me-2"
-                           type="checkbox">
-                    {{todo.label}}
+                  <li *ngFor="let todo of (todos | todoFilterPipe:todosFilterChoice); index as idx"
+                      [ngClass]="{ 'line-through': todo.completed}"
+                      class="custom-li d-flex align-items-center">
+                    <div class="d-flex align-items-center flex-grow-1">
+                      <input [(ngModel)]="todo.completed" class="form-check-input me-2 toggle-all-checkbox"
+                             type="checkbox">
+                      <span>{{ todo.label }}</span>
+                    </div>
+                    <button (click)="removeTodo(todo)" class="btn btn-close btn-sm"></button>
                   </li>
-                  <li class="custom-li">
-                    <input checked class="form-check-input me-2" type="checkbox"/>
-                    <input class="form-control border-0 bg-white" type="text" value="Cras justo odio in edit mode"/>
-                  </li>
+
+                  <!--                  TO IMPLEMENT EDIT MODE-->
+                  <!--                  <li class="custom-li">-->
+                  <!--                    <input checked class="form-check-input me-2" type="checkbox"/>-->
+                  <!--                    <input class="form-control border-0 bg-white line-through" type="text"-->
+                  <!--                           value="Cras justo odio in edit mode"/>-->
+                  <!--                  </li>-->
 
                 </ul>
               </div>
@@ -67,7 +78,7 @@
 
         <div class="card custom-card">
           <div class="card-body  custom-padding">
-            5 remaining tasks
+            {{ todos | remainingTodosMessage}}
           </div>
         </div>
 
