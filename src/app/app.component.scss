@@ -63,13 +63,24 @@
 
 .custom-button {
   @extend .btn;
-  @extend .btn-info;
+  //@extend .btn-info;
   @extend .ms-2;
-  background-color: lightblue;
+  //background-color: lightblue;
+  background-color: #9bbcf2;
+}
+
+.custom-button:hover {
+  @extend .btn;
+  @extend .ms-2;
+  background-color: #277af5;
+}
+
+.myactive.custom-button:hover {
+  font-weight: bold;
+  background-color: #277af5;
 }
 
 .myactive {
-  //background-color: #0dc9ef;
   font-weight: bold;
-  background-color: lightblue;
+  background-color: #3c89fb;
 }

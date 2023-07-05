@@ -21,7 +21,7 @@
             <!--              </div>-->
             <!--            </form>-->
             <!--  Form to add new todo-->
-            
+
             <!--  Form to add new todo-->
             <form (ngSubmit)="addTodoFC()" class="todo-form-input">
               <div class="form-outline flex-fill">
@@ -40,25 +40,19 @@
                      type="checkbox">
               <!-- toggle all todos to completed or uncompleted-->
 
-              <!-- Tabs navs -->
-              <ul class="nav nav-tabs">
-                <li class="nav-item clickable">
-                  <a (click)="setTasksFilterStatus(TODO_FILTER_ENUM.ALL)"
-                     [class.myactive]="isFilterStatus(TODO_FILTER_ENUM.ALL)"
-                     class="nav-link">All</a>
-                </li>
-                <li class="nav-item clickable">
-                  <a (click)="setTasksFilterStatus(TODO_FILTER_ENUM.ACTIVE)"
-                     [class.myactive]="isFilterStatus(TODO_FILTER_ENUM.ACTIVE)"
-                     class="nav-link">Active</a>
-                </li>
-                <li class="nav-item clickable">
-                  <a (click)="setTasksFilterStatus(TODO_FILTER_ENUM.COMPLETED)"
-                     [class.myactive]="isFilterStatus(TODO_FILTER_ENUM.COMPLETED)"
-                     class="nav-link">Completed</a>
-                </li>
-              </ul>
-              <!-- Tabs navs -->
+              <!-- Filtering Action button -->
+              <button (click)="setTasksFilterStatus(TODO_FILTER_ENUM.ALL)"
+                      [class.myactive]="isFilterStatus(TODO_FILTER_ENUM.ALL)"
+                      class="m-1 custom-button">All
+              </button>
+              <button (click)="setTasksFilterStatus(TODO_FILTER_ENUM.ACTIVE)"
+                      [class.myactive]="isFilterStatus(TODO_FILTER_ENUM.ACTIVE)"
+                      class="m-1 custom-button">Active
+              </button>
+              <button (click)="setTasksFilterStatus(TODO_FILTER_ENUM.COMPLETED)"
+                      [class.myactive]="isFilterStatus(TODO_FILTER_ENUM.COMPLETED)"
+                      class="m-1 custom-button">Completed
+              </button>
             </div>
 
             <!-- Tabs content -->
