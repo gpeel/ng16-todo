@@ -23,7 +23,7 @@
             <!--  Form to add new todo-->
 
             <!--  Form to add new todo-->
-            <form (ngSubmit)="addTodoFC()" class="todo-form-input">
+            <form (ngSubmit)="onAddTodo()" class="todo-form-input">
               <div class="form-outline flex-fill">
                 <input [formControl]="inputFormControl" autocomplete="off"
                        autofocus
@@ -36,7 +36,7 @@
 
             <div class="d-flex align-items-center mb-4">
               <!-- toggle all todos to completed -->
-              <input (click)="toggleAll($any($event.target).checked )"
+              <input (click)="onToggleAll($any($event.target).checked )"
                      [formControl]="inputToggleAllFormControl"
                      class="me-3 form-check-input toggle-all-checkbox"
                      type="checkbox">
@@ -71,13 +71,13 @@
                   <ng-template #thenShow>
                     <ng-container>
                       <div class="d-flex align-items-center flex-grow-1">
-                        <input (change)="toggleCompleted(todo)"
+                        <input (change)="onToggleCompletedChange(todo)"
                                [(ngModel)]="todo.completed"
                                [id]="'todo'+ idx" class="form-check-input me-2"
                                type="checkbox">
                         <label [for]="'todo'+ idx">{{ todo.label }}</label>
                       </div>
-                      <button (click)="removeTodo(todo)" class="btn btn-close btn-sm"></button>
+                      <button (click)="onRemoveTodo(todo)" class="btn btn-close btn-sm"></button>
                     </ng-container>
                   </ng-template>
 
@@ -85,7 +85,7 @@
                   <ng-template #elseEditing>
                     <div class="input-group">
                       <div class="d-flex align-items-center flex-grow-1">
-                        <input (change)="toggleCompleted(todo)"
+                        <input (change)="onToggleCompletedChange(todo)"
                                [(ngModel)]="todo.completed"
                                [id]="'todo'+ idx" class="form-check-input me-2"
                                type="checkbox">

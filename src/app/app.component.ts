@@ -26,7 +26,7 @@ export class AppComponent {
     TodoUtils.createTodo('Go to Mars'),
   ];
 
-  removeTodo(todo: Todo): void {
+  onRemoveTodo(todo: Todo): void {
     console.log('REMOVE in APP', todo);
     this.todos.splice(this.todos.indexOf(todo), 1);
     // Now also check if all todos are completed to toggle the toggleAll checbkox
@@ -46,7 +46,7 @@ export class AppComponent {
   //   this.newTodoLabel = '';
   // }
 
-  addTodoFC(): void {
+  onAddTodo(): void {
     console.log('in ADD TODO FC');
     if (this.inputFormControl.value?.trim()) {
       const todo = TodoUtils.createTodo(this.inputFormControl.value.trim());
@@ -83,7 +83,7 @@ export class AppComponent {
   }
 
   @HostListener('document:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
+  handleEscapeKeyboardEvent(event: KeyboardEvent) {
     if (event.key === 'Escape') {
       if (this.editingTodo !== null) {
         this.editingTodo.label = this.editingTodoLabelPrevious as string;
@@ -93,7 +93,7 @@ export class AppComponent {
     }
   }
 
-  toggleAll(valueChecked: boolean): void {
+  onToggleAll(valueChecked: boolean): void {
     this.todos.forEach(todo => todo.completed = valueChecked);
   }
 
@@ -102,7 +102,7 @@ export class AppComponent {
    * => So we must check.
    * If is the case => uncheck the toggleAll checkbox
    */
-  toggleCompleted(todo: Todo) {
+  onToggleCompletedChange(todo: Todo) {
     console.log('TOGGLE completed', todo);
     if (!todo.completed) {
       console.log('one todo is not completed');
