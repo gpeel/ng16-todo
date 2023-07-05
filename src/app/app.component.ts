@@ -62,8 +62,11 @@ export class AppComponent {
   toggleCompleted(todo: Todo) {
     console.log('TOGGLE completed', todo);
     if (!todo.completed) {
-      console.log('some todos are not completed');
+      console.log('one todo is not completed');
       this.inputToggleAllFormControl.setValue(false);
+    } else {
+      // if all todos are completed, then check the toggleAll checkbox
+      this.todos.every(t => t.completed) && this.inputToggleAllFormControl.setValue(true);
     }
     // check if this todo turns uncompleted
     // if (this.todos.some(todo => !todo.completed)) {
