@@ -35,12 +35,13 @@
             <!--  Form to add new todo-->
 
             <div class="d-flex align-items-center mb-4">
-              
+
               <!-- toggle all todos to completed -->
               <input (click)="onToggleAll($any($event.target).checked )"
                      [formControl]="inputToggleAllFormControl"
                      class="me-3 form-check-input toggle-all-checkbox"
                      data-test="toggle-all-checkbox"
+                     ngbTooltip="Toggle All Todos"
                      type="checkbox">
               <!-- toggle all todos to completed-->
 
@@ -86,7 +87,8 @@
                         <label [for]="'todo'+ idx">{{ todo.label }}</label>
                       </div>
                       <button (click)="onRemoveTodo(todo)" class="btn btn-close btn-sm"
-                              data-test="remove-todo"></button>
+                              data-test="remove-todo"
+                              ngbTooltip="Remove Todo"></button>
                     </ng-container>
                   </ng-template>
 
