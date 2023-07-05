@@ -13,6 +13,7 @@ export class AppComponent {
 
   // newTodoLabel: string = '';
   inputFormControl = new FormControl();
+  inputToggleAllFormControl = new FormControl();
   todosFilterChoice: TODO_FILTER_ENUM = TODO_FILTER_ENUM.ALL;
   TODO_FILTER_ENUM = TODO_FILTER_ENUM;
   todos: Todo[] = [
@@ -51,6 +52,23 @@ export class AppComponent {
 
   toggleAll(valueChecked: boolean): void {
     this.todos.forEach(todo => todo.completed = valueChecked);
+  }
+
+  /**
+   * after a change of completed flag in the array todos, we can now have uncompleted tasks
+   * => So we must check.
+   * If is the case => uncheck the toggleAll checkbox
+   */
+  toggleCompleted(todo: Todo) {
+    console.log('TOGGLE completed', todo);
+    if (!todo.completed) {
+      console.log('some todos are not completed');
+      this.inputToggleAllFormControl.setValue(false);
+    }
+    // check if this todo turns uncompleted
+    // if (this.todos.some(todo => !todo.completed)) {
+    //   console.log('some todos are not completed');
+    // }
   }
 
   // computeRemainingTodos(): number {

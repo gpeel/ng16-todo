@@ -35,10 +35,12 @@
             <!--  Form to add new todo-->
 
             <div class="d-flex align-items-center mb-4">
-              <!-- toggle all todos to completed or uncompleted-->
-              <input (click)="toggleAll($any($event.target).checked )" class="me-3 form-check-input toggle-all-checkbox"
+              <!-- toggle all todos to completed -->
+              <input (click)="toggleAll($any($event.target).checked )"
+                     [formControl]="inputToggleAllFormControl"
+                     class="me-3 form-check-input toggle-all-checkbox"
                      type="checkbox">
-              <!-- toggle all todos to completed or uncompleted-->
+              <!-- toggle all todos to completed-->
 
               <!-- Filtering Action button -->
               <button (click)="setTasksFilterStatus(TODO_FILTER_ENUM.ALL)"
@@ -63,7 +65,8 @@
                       [ngClass]="{ 'line-through': todo.completed}"
                       class="custom-li">
                     <div class="d-flex align-items-center flex-grow-1">
-                      <input [(ngModel)]="todo.completed"
+                      <input (change)="toggleCompleted(todo)"
+                             [(ngModel)]="todo.completed"
                              [id]="'todo'+ idx" class="form-check-input me-2"
                              type="checkbox">
                       <label [for]="'todo'+ idx">{{ todo.label }}</label>
