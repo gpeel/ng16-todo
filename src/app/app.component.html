@@ -80,12 +80,16 @@
                     <ng-container>
                       <div class="d-flex align-items-center flex-grow-1">
                         <input (change)="onToggleCompletedChange(todo)"
-                               [(ngModel)]="todo.completed"
+                               [checked]="todo.completed"
                                [id]="'todo'+ idx" class="form-check-input me-2"
                                data-test="todo-item-checkbox"
                                type="checkbox">
                         <label [for]="'todo'+ idx">{{ todo.label }}</label>
                       </div>
+                      <button (click)="onEditTodo(todo)" class="btn btn-sm"
+                              data-test="edit-todo"
+                              ngbTooltip="Edit Todo">edit
+                      </button>
                       <button (click)="onRemoveTodo(todo)" class="btn btn-close btn-sm"
                               data-test="remove-todo"
                               ngbTooltip="Remove Todo"></button>
@@ -96,9 +100,7 @@
                   <ng-template #elseEditing>
                     <div class="input-group">
                       <div class="d-flex align-items-center flex-grow-1">
-                        <input (change)="onToggleCompletedChange(todo)"
-                               [(ngModel)]="todo.completed"
-                               [id]="'todo'+ idx" class="form-check-input me-2"
+                        <input [id]="'todo'+ idx" class="form-check-input me-2"
                                type="checkbox">
                         <input #inputEdit
                                (blur)="onExitEdit()"

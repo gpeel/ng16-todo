@@ -126,6 +126,7 @@ export class AppComponent {
    */
   onToggleCompletedChange(todo: Todo) {
     console.log('TOGGLE completed', todo);
+    todo.completed = !todo.completed;
     if (!todo.completed) {
       console.log('one todo is not completed');
       this.inputToggleAllFormControl.setValue(false);
