@@ -57,19 +57,19 @@
               </button>
             </div>
 
-            <!-- Tabs content -->
-            <div class="tab-content">
-              <div class="">
-                <ul class="list-group mb-0">
-                  <li *ngFor="let todo of (todos | todoFilterPipe:todosFilterChoice); index as idx"
-                      [ngClass]="{ 'line-through': todo.completed}"
-                      class="custom-li">
+            <!-- List content -->
+            <div class="list-content">
+              <ul class="list-group mb-0">
+                <li (dblclick)="onEditTodo(todo)"
+                    *ngFor="let todo of (todos | todoFilterPipe:todosFilterChoice); index as idx"
+                    [ngClass]="{ 'line-through': todo.completed}"
+                    class="custom-li">
 
-                    <!--                    <div *ngIf="condition; then thenBlock else elseBlock"></div>-->
-                    <!--                    <ng-template #thenBlock>Content to render when condition is true.</ng-template>-->
-                    <!--                    <ng-template #elseBlock>Content to render when condition is false.</ng-template>-->
+                  <div *ngIf="editingTodo?.id!==todo.id; then thenShow else elseEditing"></div>
 
-                    <ng-container (dblclick)="onEditTodo(todo)" *ngIf="editingTodoId!==todo.id">
+                  <!-- SHOW mode-->
+                  <ng-template #thenShow>
+                    <ng-container>
                       <div class="d-flex align-items-center flex-grow-1">
                         <input (change)="toggleCompleted(todo)"
                                [(ngModel)]="todo.completed"
@@ -79,19 +79,30 @@
                       </div>
                       <button (click)="removeTodo(todo)" class="btn btn-close btn-sm"></button>
                     </ng-container>
-                  </li>
+                  </ng-template>
 
-                  <!--                  TO IMPLEMENT EDIT MODE-->
-                  <!--                  <li class="custom-li">-->
-                  <!--                    <input checked class="form-check-input me-2" type="checkbox"/>-->
-                  <!--                    <input class="form-control border-0 bg-white line-through" type="text"-->
-                  <!--                           value="Cras justo odio in edit mode"/>-->
-                  <!--                  </li>-->
+                  <!-- EDIT mode-->
+                  <ng-template #elseEditing>
+                    <div class="input-group">
+                      <div class="d-flex align-items-center flex-grow-1">
+                        <input (change)="toggleCompleted(todo)"
+                               [(ngModel)]="todo.completed"
+                               [id]="'todo'+ idx" class="form-check-input me-2"
+                               type="checkbox">
+                        <input #inputEdit
+                               (blur)="onExitEdit()"
+                               (keyup.enter)="onExitEdit()"
+                               [(ngModel)]="todo.label"
+                               class="form-control border-0 bg-whitline-through"
+                        />
+                      </div>
+                    </div>
+                  </ng-template>
 
-                </ul>
-              </div>
+                </li>
+              </ul>
             </div>
-            <!-- Tabs content -->
+            <!-- List content -->
 
           </div>
         </div>

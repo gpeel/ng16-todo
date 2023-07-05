@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Todo, TODO_FILTER_ENUM, TodoUtils} from './todo.model';
 
@@ -14,9 +14,11 @@ export class AppComponent {
   // newTodoLabel: string = '';
   inputFormControl = new FormControl();
   inputToggleAllFormControl = new FormControl();
+  @ViewChild('inputEdit', {static: false}) inputEditRef!: ElementRef<HTMLInputElement>;
+  editingTodo: Todo | null = null; // only one Todo could be edited at a time
+  editingTodoLabelPrevious: string | null = null;
   todosFilterChoice: TODO_FILTER_ENUM = TODO_FILTER_ENUM.ALL;
   TODO_FILTER_ENUM = TODO_FILTER_ENUM;
-  editingTodoId: number | null = null; // only one Todo could be edited at a time
   todos: Todo[] = [
     {id: 0, label: 'Go drink beers', completed: false}, // duck typing works fine!, but beware of id
     TodoUtils.createTodo('Sleep', true),
@@ -27,6 +29,8 @@ export class AppComponent {
   removeTodo(todo: Todo): void {
     console.log('REMOVE in APP', todo);
     this.todos.splice(this.todos.indexOf(todo), 1);
+    // Now also check if all todos are completed to toggle the toggleAll checbkox
+    this.todos.every(t => t.completed) ? this.inputToggleAllFormControl.setValue(true) : this.inputToggleAllFormControl.setValue(false);
   }
 
   // addTodo(value: string, input: HTMLInputElement): void {
@@ -53,8 +57,39 @@ export class AppComponent {
 
   onEditTodo(todo: Todo): void {
     console.log('EDIT in APP', todo);
-    if (!this.editingTodoId) {
-      this.editingTodoId = todo.id;
+    if (this.editingTodo !== null) {
+      this.editingTodo.id = todo.id;
+      this.editingTodoLabelPrevious = todo.label;
+    } else {
+      console.log('already editing another todo => swithcing to this one', todo);
+      this.editingTodo = todo;
+      this.editingTodoLabelPrevious = todo.label;
+    }
+    setTimeout(() => {
+      console.log('REF', this.inputEditRef.nativeElement);
+      this.inputEditRef.nativeElement.focus();
+    });
+  }
+
+  onExitEdit() {
+    if (this.editingTodo !== null) {
+      if (this.editingTodo.label.trim() === '') {
+        // because we don't want empty labels
+        this.editingTodo.label = this.editingTodoLabelPrevious as string;
+      }
+      this.editingTodo = null;
+      this.editingTodoLabelPrevious = null;
+    }
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      if (this.editingTodo !== null) {
+        this.editingTodo.label = this.editingTodoLabelPrevious as string;
+        this.editingTodo = null;
+        this.editingTodoLabelPrevious = null;
+      }
     }
   }
 
