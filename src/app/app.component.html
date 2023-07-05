@@ -84,7 +84,7 @@
                                [id]="'todo'+ idx" class="form-check-input me-2"
                                data-test="todo-item-checkbox"
                                type="checkbox">
-                        <label [for]="'todo'+ idx">{{ todo.label }}</label>
+                        <label [for]="'todo'+ idx" data-test="todo-item-label">{{ todo.label }}</label>
                       </div>
                       <button (click)="onEditTodo(todo)" class="btn btn-sm"
                               data-test="edit-todo"
@@ -104,9 +104,10 @@
                                type="checkbox">
                         <input #inputEdit
                                (blur)="onExitEdit()"
+                               (input)="onInputEdit( $any($event.target).value, todo)"
                                (keydown)="debugKey('A', $event)"
                                (keyup.enter)="onExitEdit()"
-                               [(ngModel)]="todo.label"
+                               [value]="todo.label"
                                class="form-control border-0 bg-whitline-through"
                                data-test="input-edit"
                         />

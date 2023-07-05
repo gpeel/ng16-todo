@@ -49,11 +49,7 @@ describe('AppComponent ChapGPT', () => {
     const todo = component.todos[0];
     const completedState = todo.completed;
     component.onToggleCompletedChange(todo);
-    expect(todo.completed).toBe(completedState);
-    // ChatGPT error
-    // expect(todo.completed).toBe(!completedState); // wrong because onToggleCompletedChange does NOT change the
-    // todo.completed state
-    // but only react AFTER the change to get the toggleAll checkbox state right
+    expect(todo.completed).toBe(!completedState);
   });
 
   it('should toggle all todos to completed', () => {

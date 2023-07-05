@@ -34,7 +34,7 @@ describe('AppComponent ChatGPT-2', () => {
   });
 
   it('2- should add a new todo from UI event', () => {
-    const todoLabel = 'New Todo';
+    const todoLabel = 'New Todo pipo';
     const inputElement: HTMLInputElement = compiled.querySelector('[data-test="input-todo"]') as HTMLInputElement;
     inputElement.value = todoLabel;
     inputElement.dispatchEvent(new Event('input'));
@@ -44,10 +44,10 @@ describe('AppComponent ChatGPT-2', () => {
     expect(component.todos.length).toBe(5);
     expect(component.todos[4].label).toBe(todoLabel);
     expect(component.inputFormControl.value).toBe('');
-    const todoElements = compiled.querySelectorAll('[data-test="todo-item-li"]');
+    const todoElements = compiled.querySelectorAll('[data-test="todo-item-label"]');
     expect(todoElements.length).toBe(5);
     const lastTodoElement = todoElements[todoElements.length - 1] as Element;
-    expect(lastTodoElement.textContent!.trim()).toBe(todoLabel);
+    expect(lastTodoElement.textContent!.trim()).toBe(todoLabel); // now we have the button text !
   });
 
   it('3- should remove a todo from UI event', () => {

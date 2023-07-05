@@ -87,6 +87,11 @@ export class AppComponent {
     });
   }
 
+  onInputEdit(value: string, todo: Todo): void {
+    console.log('onInputEdit', value);
+    todo.label = value;
+  }
+
   onExitEdit() {
     console.log('onExitEdit');
     if (this.editingTodo !== null) {
@@ -125,8 +130,8 @@ export class AppComponent {
    * If is the case => uncheck the toggleAll checkbox
    */
   onToggleCompletedChange(todo: Todo) {
-    console.log('TOGGLE completed', todo);
     todo.completed = !todo.completed;
+    console.log('TOGGLE completed', todo);
     if (!todo.completed) {
       console.log('one todo is not completed');
       this.inputToggleAllFormControl.setValue(false);
