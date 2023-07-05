@@ -17,6 +17,8 @@ let count = 0;
  * Note-3 : or just a capture of (change) event on the input checkbox (in the list) and remove the [(ngModel)].
  * For the edit mode, also both ngModel should be removed (it would simplify the tests refresh
  * => no more fixture.whenStable() needed).
+ * Note-4 : also to simplify editing exit we should used a modal instead of a simple input with *ngIf.
+ * That way the output scenario is much more controlled (because the user cannot click outside the modal).
  */
 @Component({
   selector: 'app-root',
