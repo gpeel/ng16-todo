@@ -16,6 +16,7 @@ export class AppComponent {
   inputToggleAllFormControl = new FormControl();
   todosFilterChoice: TODO_FILTER_ENUM = TODO_FILTER_ENUM.ALL;
   TODO_FILTER_ENUM = TODO_FILTER_ENUM;
+  editingTodoId: number | null = null; // only one Todo could be edited at a time
   todos: Todo[] = [
     {id: 0, label: 'Go drink beers', completed: false}, // duck typing works fine!, but beware of id
     TodoUtils.createTodo('Sleep', true),
@@ -47,6 +48,13 @@ export class AppComponent {
       const todo = TodoUtils.createTodo(this.inputFormControl.value.trim());
       this.todos.push(todo);
       this.inputFormControl.setValue('');
+    }
+  }
+
+  onEditTodo(todo: Todo): void {
+    console.log('EDIT in APP', todo);
+    if (!this.editingTodoId) {
+      this.editingTodoId = todo.id;
     }
   }
 

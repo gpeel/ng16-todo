@@ -64,14 +64,21 @@
                   <li *ngFor="let todo of (todos | todoFilterPipe:todosFilterChoice); index as idx"
                       [ngClass]="{ 'line-through': todo.completed}"
                       class="custom-li">
-                    <div class="d-flex align-items-center flex-grow-1">
-                      <input (change)="toggleCompleted(todo)"
-                             [(ngModel)]="todo.completed"
-                             [id]="'todo'+ idx" class="form-check-input me-2"
-                             type="checkbox">
-                      <label [for]="'todo'+ idx">{{ todo.label }}</label>
-                    </div>
-                    <button (click)="removeTodo(todo)" class="btn btn-close btn-sm"></button>
+
+                    <!--                    <div *ngIf="condition; then thenBlock else elseBlock"></div>-->
+                    <!--                    <ng-template #thenBlock>Content to render when condition is true.</ng-template>-->
+                    <!--                    <ng-template #elseBlock>Content to render when condition is false.</ng-template>-->
+
+                    <ng-container (dblclick)="onEditTodo(todo)" *ngIf="editingTodoId!==todo.id">
+                      <div class="d-flex align-items-center flex-grow-1">
+                        <input (change)="toggleCompleted(todo)"
+                               [(ngModel)]="todo.completed"
+                               [id]="'todo'+ idx" class="form-check-input me-2"
+                               type="checkbox">
+                        <label [for]="'todo'+ idx">{{ todo.label }}</label>
+                      </div>
+                      <button (click)="removeTodo(todo)" class="btn btn-close btn-sm"></button>
+                    </ng-container>
                   </li>
 
                   <!--                  TO IMPLEMENT EDIT MODE-->
