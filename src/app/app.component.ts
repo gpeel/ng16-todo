@@ -4,6 +4,17 @@ import {Todo, TODO_FILTER_ENUM, TodoUtils} from './todo.model';
 
 let count = 0;
 
+/**
+ * Using [(ngModel)] in a list is quite convenient here but it is not recommended in general.
+ * Why convenient ?
+ * Because if we used FormControl we would have to adjust the number of FormControl used by the list.
+ * => each time we add a new Todo we would have to add a new FormControl to the list.
+ * => and each time we remove a Todo we would have to remove a FormControl from the list.
+ * => and at the right index!
+ * Of course we would use a FormArray to do it, but it would be more complicated than with [(ngModel)].
+ * Note-2 : in an immutable world, we would be forced to create a new FormControl for each Todo,
+ * in order NEVER to modify directly the original Todo.
+ */
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
