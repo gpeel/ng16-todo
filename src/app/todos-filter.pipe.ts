@@ -2,10 +2,10 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {Todo, TODO_FILTER_ENUM} from './todo.model';
 
 @Pipe({
-  name: 'todoFilterPipe',
+  name: 'todosFilterPipe',
   pure: false
 })
-export class TodosFilterPipe implements PipeTransform {
+export class TodosFilterPipePipe implements PipeTransform {
   counter = 0;
 
   transform(todos: Todo[], status: TODO_FILTER_ENUM): Todo[] {

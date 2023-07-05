@@ -8,11 +8,11 @@ import {Todo} from './todo.model';
  *       <span class="todo-count"><strong>{{ tasks |remainingTasks }}</strong></span>
  */
 @Pipe({
-  name: 'remainingTodosMessage',
+  name: 'remainingMessage',
   pure: false
   // pure: true
 })
-export class RemainingTodosPipe implements PipeTransform {
+export class RemainingMessagePipe implements PipeTransform {
   counter = 0;
 
   transform(todos: Todo[]): string {
@@ -20,11 +20,11 @@ export class RemainingTodosPipe implements PipeTransform {
     const num = todos.filter(t => !t.completed).length;
     switch (num) {
       case 0:
-        return 'No remaining tasks';
+        return 'No remaining todos';
       case 1:
-        return '1 remaining task';
+        return '1 remaining todo';
       default:
-        return `${num} remaining tasks`;
+        return `${num} remaining todos`;
     }
   }
 

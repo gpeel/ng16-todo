@@ -68,8 +68,8 @@ export class AppComponent {
 
   onEditTodo(todo: Todo): void {
     console.log('EDIT in APP', todo);
-    if (this.editingTodo !== null) {
-      this.editingTodo.id = todo.id;
+    if (this.editingTodo === null) {
+      this.editingTodo = todo;
       this.editingTodoLabelPrevious = todo.label;
     } else {
       console.log('already editing another todo => swithcing to this one', todo);
@@ -83,6 +83,7 @@ export class AppComponent {
   }
 
   onExitEdit() {
+    console.log('onExitEdit');
     if (this.editingTodo !== null) {
       if (this.editingTodo.label.trim() === '') {
         // because we don't want empty labels
@@ -95,6 +96,7 @@ export class AppComponent {
 
   @HostListener('document:keydown', ['$event'])
   handleEscapeKeyboardEvent(event: KeyboardEvent) {
+    console.log('handleEscapeKeyboardEvent KEYDOWN', event);
     if (event.key === 'Escape') {
       if (this.editingTodo !== null) {
         this.editingTodo.label = this.editingTodoLabelPrevious as string;
@@ -102,6 +104,10 @@ export class AppComponent {
         this.editingTodoLabelPrevious = null;
       }
     }
+  }
+
+  debugKey(l: string, e: any) {
+    console.log('debugKey', l, e);
   }
 
   onToggleAll(valueChecked: boolean): void {
