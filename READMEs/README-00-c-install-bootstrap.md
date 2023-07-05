@@ -26,4 +26,19 @@ dependencies.
 
 ## font awesome
 
+        ng add @fortawesome/angular-fontawesome
+
+https://github.com/FortAwesome/angular-fontawesome
+
+o install Font Awesome in an Angular project, you can follow these steps:
+
         npm install --save @fortawesome/fontawesome-free
+
+In the "styles" section, add the Font Awesome CSS file path to include the styles. The path should be relative to your
+node_modules directory. For example:
+
+        "styles": [
+        "src/styles.css",
+        "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+
+]

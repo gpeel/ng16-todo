@@ -1,22 +1,11 @@
 import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
+import {faChevronDown, faCoffee, faEdit, faRemove} from '@fortawesome/free-solid-svg-icons';
 import {Todo, TODO_FILTER_ENUM, TodoUtils} from './todo.model';
 
 let count = 0;
 
 /**
- * Using [(ngModel)] in a list is quite convenient here but it is not recommended in general.
- * Why convenient ?
- * Because if we used FormControl we would have to adjust the number of FormControl used by the list.
- * => each time we add a new Todo we would have to add a new FormControl to the list.
- * => and each time we remove a Todo we would have to remove a FormControl from the list.
- * => and at the right index!
- * Of course we would use a FormArray to do it, but it would be more complicated than with [(ngModel)].
- * Note-2 : in an immutable world, we would be forced to create a new FormControl for each Todo,
- * in order NEVER to modify directly the original Todo.
- * Note-3 : or just a capture of (change) event on the input checkbox (in the list) and remove the [(ngModel)].
- * For the edit mode, also both ngModel should be removed (it would simplify the tests refresh
- * => no more fixture.whenStable() needed).
  * Note-4 : also to simplify editing exit we should used a modal instead of a simple input with *ngIf.
  * That way the output scenario is much more controlled (because the user cannot click outside the modal).
  */
@@ -26,7 +15,10 @@ let count = 0;
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
+  faCoffee = faCoffee;
+  faEdit = faEdit;
+  faChevronDown = faChevronDown;
+  faRemove = faRemove;
   // newTodoLabel: string = '';
   inputFormControl = new FormControl();
   inputToggleAllFormControl = new FormControl();

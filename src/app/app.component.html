@@ -5,7 +5,11 @@
 
         <header class="custom-header">
           <div class="container">
-            <h1 class="custom-h1">Todo App!</h1>
+            <h1 class="custom-h1">Todo App
+              is Angular coffee
+              <fa-icon [icon]="faCoffee"></fa-icon>
+            </h1>
+
           </div>
         </header>
 
@@ -88,11 +92,14 @@
                       </div>
                       <button (click)="onEditTodo(todo)" class="btn btn-sm"
                               data-test="edit-todo"
-                              ngbTooltip="Edit Todo">edit
+                              ngbTooltip="Edit Todo">
+                        <fa-icon [icon]="faEdit"></fa-icon>
                       </button>
-                      <button (click)="onRemoveTodo(todo)" class="btn btn-close btn-sm"
+                      <button (click)="onRemoveTodo(todo)" class="btn btn-sm"
                               data-test="remove-todo"
-                              ngbTooltip="Remove Todo"></button>
+                              ngbTooltip="Remove Todo">
+                        <fa-icon [icon]="faRemove"></fa-icon>
+                      </button>
                     </ng-container>
                   </ng-template>
 
