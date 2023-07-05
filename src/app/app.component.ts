@@ -14,6 +14,9 @@ let count = 0;
  * Of course we would use a FormArray to do it, but it would be more complicated than with [(ngModel)].
  * Note-2 : in an immutable world, we would be forced to create a new FormControl for each Todo,
  * in order NEVER to modify directly the original Todo.
+ * Note-3 : or just a capture of (change) event on the input checkbox (in the list) and remove the [(ngModel)].
+ * For the edit mode, also both ngModel should be removed (it would simplify the tests refresh
+ * => no more fixture.whenStable() needed).
  */
 @Component({
   selector: 'app-root',

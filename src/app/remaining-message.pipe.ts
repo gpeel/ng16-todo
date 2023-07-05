@@ -3,9 +3,9 @@ import {Todo} from './todo.model';
 
 /**
  * This Pipe does ALL the work,
- * not only returning the number of remainingTasks but also the right message.
+ * not only computing number of remaining Todo(s) but returning the right message.
  * Usage :
- *       <span class="todo-count"><strong>{{ tasks |remainingTasks }}</strong></span>
+ *       <span class="todo-count"><strong>{{ todos |remainingTasks }}</strong></span>
  */
 @Pipe({
   name: 'remainingMessage',
