@@ -30,4 +30,25 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
+  // Q: could you write the test code for the following test case ?
+  // a:
+  //q: it fails, could you correct it ?
+  //a: not done!
+  // pb was selector querySelectorAll('[data-test="todo-item-li"]');
+  // initialtly it was querySelectorAll('todo-list li'); but it was not working
+  // where dis codepilog get that selector from ?
+  it('should show in the UI the same todos labels and completed values as those in component.todos', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    const compiled = fixture.nativeElement;
+    fixture.detectChanges();
+    const todos = compiled.querySelectorAll('[data-test="todo-item-li"]');
+    expect(todos.length).toBe(app.todos.length);
+    app.todos.forEach((todo, index) => {
+      const todoElement = todos[index];
+      expect(todoElement.querySelector('label').textContent).toBe(todo.label);
+      expect(todoElement.querySelector('input[type=checkbox]').checked).toBe(todo.completed);
+    });
+  });
+
 });
