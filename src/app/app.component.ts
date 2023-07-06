@@ -26,7 +26,8 @@ export class AppComponent {
   // onAddTodo(): void { }
 
   // onToggleAll(valueChecked: boolean): void {}
-
-  // onToggleOne(todo: Todo) : void {}
+  onToggleOne(todo: Todo) {
+    todo.completed = !todo.completed;
+  }
 
 }
