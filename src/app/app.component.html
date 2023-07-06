@@ -68,7 +68,8 @@
                           ngbTooltip="Edit Todo">
                     <fa-icon [icon]="faEdit"></fa-icon>
                   </button>
-                  <button class="btn btn-sm"
+                  <button (click)="onRemoveTodo(todo)" class="btn btn-sm"
+                          class="btn btn-sm"
                           data-test="remove-todo"
                           ngbTooltip="Remove Todo">
                     <fa-icon [icon]="faRemove"></fa-icon>

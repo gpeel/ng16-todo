@@ -21,7 +21,10 @@ export class AppComponent {
     TodoUtils.createTodo('Go to Mars'),
   ];
 
-  // onRemoveTodo(todo: Todo): void {}
+  onRemoveTodo(todo: Todo): void {
+    console.log('REMOVE in APP', todo);
+    this.todos.splice(this.todos.indexOf(todo), 1);
+  }
 
   // onAddTodo(): void { }
 

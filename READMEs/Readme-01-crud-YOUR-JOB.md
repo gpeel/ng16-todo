@@ -72,9 +72,7 @@ them manually with a literal.
 
 Add the class  *line-through* on *\<li>* when the task is completed (complete===true)
 
-In the file ./src/style.css => this will use the following style definition:
-
-      src/app/app.component.scss
+      src/app/app.component.scss:
         .line-through {
             text-decoration: line-through;
         }   
@@ -83,7 +81,9 @@ Check the syntax for  [ngClass] over internet (or in the slides)
 
 https://www.telerik.com/blogs/angular-basics-conditional-classes-angular-ngclass
 
-5. Delete a task when clicking on the cross button
+## 5. Delete a Todo
+
+when clicking on the button with an X on the same line than the task, the task should be removed from the list.
 
 6. Add a Task when clicking enter when focused on the \<input>
 
