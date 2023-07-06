@@ -39,7 +39,7 @@ describe('AppComponent', () => {
     expect(compiled.querySelector('header h1')!.textContent!.trim()).toContain('Todo App');
   });
 
-  it('1) should have 0 remaining tasks', () => {
+  it('1- should have 0 remaining tasks', () => {
     expect(component.remainingTodos)
       .withContext('The property remainingTasks should be created')
       .toBeDefined();
@@ -47,6 +47,16 @@ describe('AppComponent', () => {
       .withContext('The property remainingTasks should be initialized to 0')
       .toBe(0);
   });
+
+  it('2- should have 4 Todo(s) on the component', waitForAsync(() => {
+    const component = fixture.componentInstance;
+    expect(component.todos)
+      .withContext('The tasks property should be created')
+      .toBeDefined();
+    expect(component.todos.length)
+      .withContext('The task array should contain 4 tasks')
+      .toBe(4);
+  }));
 
   // it('should show in the UI the same todos labels and completed values as those in component.todos', () => {
   //   const fixture = TestBed.createComponent(AppComponent);

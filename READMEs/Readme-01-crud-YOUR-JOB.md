@@ -38,15 +38,12 @@ in HTML.
 
          export class AppComponent { remainingTasks = 0; }
 
-2. Initialize a array of Task (*tasks : Task[]*) with 3 tasks and show those tasks in HTML. Each task should have 2
-   properties =>   completed : boolean and label : string . And 1 task should be already completed.
+## 2. Initialize a array of Task
 
-   ex :
-
-       var todo = {
-         label: 'learn RxJS',
-         completed: false
-       }
+Initialize a array of Todo(s) (*todos : Todo[]*) with 4 Todo(s) and show those Todos in HTML. Each Todo should have 2
+properties =>   completed : boolean and label : string + an id : number property. And one of those Todo(s) should be
+already completed. You can use the util class.method TodoUtils.createTodo(label, completed) to create a Todo or create
+them manually with a literal.
 
 3. Add the necessary code to be able to toggle the state of a task (property complete) between true/false when either
    clicking on the checkbox or the label of the task on the UI. To make the test pass for "cliking on the label" you
