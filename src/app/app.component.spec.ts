@@ -134,6 +134,27 @@ describe('AppComponent', () => {
     expect(lastTodoElement.textContent!.trim()).toBe(todoLabel); // now we have the button text !
   });
 
-  // toggle one => impact toggle all
+  it('7- should toggle all todos to completed', () => {
+    component.onToggleAll(true);
+    expect(component.todos.every(todo => todo.completed)).toBeTruthy();
+  });
+
+  it('7- should toggle all todos to completed from UI event', async () => {
+    const toggleAllCheckbox: HTMLInputElement = compiled.querySelector('[data-test="toggle-all-checkbox"]') as HTMLInputElement;
+    toggleAllCheckbox.click();
+    fixture.detectChanges();
+    // await fixture.whenStable(); // needed if using ngModel two-way binding testing specific
+    expect(component.todos.every(todo => todo.completed)).toBeTruthy();
+
+    const checkboxes = compiled.querySelectorAll('[data-test="todo-item-checkbox"]');
+
+    checkboxes.forEach((checkbox) => {
+      expect((checkbox as HTMLInputElement).checked).toBeTruthy();
+    });
+
+  });
+
+  // missing interaction toogleone to check toggleall
+  // missing interaction addTodo to check toggleone
 
 });

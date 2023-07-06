@@ -99,8 +99,15 @@ Add a Todo when clicking typing text into the form.input + click enter or click 
   way you it's easier to capture only one (ngSubmit) event (instead of capture (keyup.enter) on the input and (click) on
   the button
 
+## 7. Toggle all Todos to  complete or uncomplete state
 
-7. Toggle all tasks complete state (true/false) when clicking on the top chevron
+When clicking on the checkbox on the top of the list, all Todos should be toggled to the opposite state (complete or not
+complete).
+
+- Also when you reach all Todos as all completed (for examplz when completing the last Todo by click its local
+  checkbox), the toggle-all checkbox should be checked automatically.
+- If one Todo turned agin not competed or a new uncompeted Todo is added, the toggle-all checkbox should be unchecked
+  automatically.
 
 8. Count how many tasks are not completed, show it on the UI and adapt the tests to make them pass
 

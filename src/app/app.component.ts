@@ -14,6 +14,7 @@ export class AppComponent {
   faRemove = faRemove;
 
   inputFormControl = new FormControl();
+  inputToggleAllFormControl = new FormControl();
   remainingTodos: number = 0;
 
   todos: Todo[] = [
@@ -37,7 +38,10 @@ export class AppComponent {
     }
   }
 
-  // onToggleAll(valueChecked: boolean): void {}
+  onToggleAll(valueChecked: boolean): void {
+    this.todos.forEach(todo => todo.completed = valueChecked);
+  }
+
   onToggleOne(todo: Todo) {
     todo.completed = !todo.completed;
   }

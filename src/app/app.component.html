@@ -29,7 +29,9 @@
             <div class="d-flex align-items-center mb-4">
 
               <!-- toggle all todos to completed or uncompleted -->
-              <input class="me-3 form-check-input toggle-all-checkbox"
+              <input (click)="onToggleAll($any($event.target).checked )"
+                     [formControl]="inputToggleAllFormControl"
+                     class="me-3 form-check-input toggle-all-checkbox"
                      data-test="toggle-all-checkbox"
                      ngbTooltip="Toggle All Todos"
                      type="checkbox">
