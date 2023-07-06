@@ -15,9 +15,10 @@
           <div class="card-body p-4">
 
             <!--  Form to add new todo-->
-            <form class="todo-form-input">
+
+            <form (ngSubmit)="onAddTodo()" class="todo-form-input">
               <div class="form-outline flex-fill">
-                <input autocomplete="off" autofocus
+                <input [formControl]="inputFormControl" autocomplete="off" autofocus
                        class="form-control"
                        data-test="input-todo" placeholder="Type a new task ...">
               </div>

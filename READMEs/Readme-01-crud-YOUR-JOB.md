@@ -85,21 +85,20 @@ https://www.telerik.com/blogs/angular-basics-conditional-classes-angular-ngclass
 
 when clicking on the button with an X on the same line than the task, the task should be removed from the list.
 
-6. Add a Task when clicking enter when focused on the \<input>
+## 6. Add a Todo
 
-   Do not add task with if the lable is empty.
+Add a Todo when clicking typing text into the form.input + click enter or click on the Add button
 
-   Clear the input value after the add.
+- Do not add task with if the label is empty
+- Clear the input value after the add.
+- You have different solutions to instrument the Add with the \<input>, one of them is adding a [(ngModel)] to the
+  input. Or a better more robust api with a FormControl. or you can use a template variable on the input (#myInput)
+  and extract the value. You also will have to captue (keyup.enter) on the input to trigger the add. And a (click)
+  on the Add button.
+- if you capture (ngSubmit) on the form, you will have to add a type="submit" on the button to make it work. And that
+  way you it's easier to capture only one (ngSubmit) event (instead of capture (keyup.enter) on the input and (click) on
+  the button
 
-   You have different solutions to instrument the \<input>, one of them is adding a ngModel to the input. If you use
-   ngModel, use the standalone version to make the test pass (unresolved angular bug), which means add [ngModelOptions]
-   ="{standalone : true}" in the input.
-
-   Most of the time when using ngModel we prefer the other solution which is to add name="theNameOfTheProp" on each
-   \<input>   and it works (both in tests and app).
-
-   You could try with "name" to see that the solution is functionnal, it is just my tricky async test which does not
-   work in that particuliar case. If you understand why tell me !
 
 7. Toggle all tasks complete state (true/false) when clicking on the top chevron
 

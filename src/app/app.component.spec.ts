@@ -117,6 +117,23 @@ describe('AppComponent', () => {
     expect(compiled.querySelectorAll('[data-test="todo-item-li"]')).toHaveSize(3);
   });
 
+  it('6- should add a new todo from UI event', () => {
+    const todoLabel = 'New Todo pipo';
+    const inputElement: HTMLInputElement = compiled.querySelector('[data-test="input-todo"]') as HTMLInputElement;
+    inputElement.value = todoLabel;
+    inputElement.dispatchEvent(new Event('input'));
+    const addButton: HTMLButtonElement = compiled.querySelector('[data-test="add-button"]') as HTMLButtonElement;
+    addButton.click();
+    fixture.detectChanges();
+    expect(component.todos.length).toBe(5);
+    expect(component.todos[4].label).toBe(todoLabel);
+    expect(component.inputFormControl.value).toBe('');
+    const todoElements = compiled.querySelectorAll('[data-test="todo-item-label"]');
+    expect(todoElements.length).toBe(5);
+    const lastTodoElement = todoElements[todoElements.length - 1] as Element;
+    expect(lastTodoElement.textContent!.trim()).toBe(todoLabel); // now we have the button text !
+  });
+
   // toggle one => impact toggle all
 
 });

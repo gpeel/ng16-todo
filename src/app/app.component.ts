@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {FormControl} from '@angular/forms';
 import {faCoffee, faEdit, faRemove} from '@fortawesome/free-solid-svg-icons';
 import {Todo, TodoUtils} from './todo.model';
 
@@ -12,6 +13,7 @@ export class AppComponent {
   faEdit = faEdit;
   faRemove = faRemove;
 
+  inputFormControl = new FormControl();
   remainingTodos: number = 0;
 
   todos: Todo[] = [
@@ -26,7 +28,14 @@ export class AppComponent {
     this.todos.splice(this.todos.indexOf(todo), 1);
   }
 
-  // onAddTodo(): void { }
+  onAddTodo(): void {
+    console.log('in ADD TODO');
+    if (this.inputFormControl.value?.trim()) {
+      const todo = TodoUtils.createTodo(this.inputFormControl.value.trim());
+      this.todos.push(todo);
+      this.inputFormControl.setValue('');
+    }
+  }
 
   // onToggleAll(valueChecked: boolean): void {}
   onToggleOne(todo: Todo) {
