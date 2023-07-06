@@ -6,11 +6,8 @@
         <header class="custom-header">
           <div class="container">
             <h1 class="custom-h1">Todo App
-              is Angular coffee
               <fa-icon [icon]="faCoffee"></fa-icon>
             </h1>
-
-
           </div>
         </header>
 
@@ -18,20 +15,9 @@
           <div class="card-body p-4">
 
             <!--  Form to add new todo-->
-            <!--            <form class="todo-form-input">-->
-            <!--              <div class="form-outline flex-fill">-->
-            <!--                <input (keyup.enter)="addTodo($event.target.value, $event.target)" autocomplete="off" autofocus-->
-            <!--                       class="form-control"-->
-            <!--                       data-test="input-todo" placeholder="Type a new task ...">-->
-            <!--              </div>-->
-            <!--            </form>-->
-            <!--  Form to add new todo-->
-
-            <!--  Form to add new todo-->
-            <form (ngSubmit)="onAddTodo()" class="todo-form-input">
+            <form class="todo-form-input">
               <div class="form-outline flex-fill">
-                <input [formControl]="inputFormControl" autocomplete="off"
-                       autofocus
+                <input autocomplete="off" autofocus
                        class="form-control"
                        data-test="input-todo" placeholder="Type a new task ...">
               </div>
@@ -41,99 +27,60 @@
 
             <div class="d-flex align-items-center mb-4">
 
-              <!-- toggle all todos to completed -->
-              <input (click)="onToggleAll($any($event.target).checked )"
-                     [formControl]="inputToggleAllFormControl"
-                     class="me-3 form-check-input toggle-all-checkbox"
+              <!-- toggle all todos to completed or uncompleted -->
+              <input class="me-3 form-check-input toggle-all-checkbox"
                      data-test="toggle-all-checkbox"
                      ngbTooltip="Toggle All Todos"
                      type="checkbox">
               <!-- toggle all todos to completed-->
 
               <!-- Filtering Action button -->
-              <button (click)="setTasksFilterStatus(TODO_FILTER_ENUM.ALL)"
-                      [class.myactive]="isFilterStatus(TODO_FILTER_ENUM.ALL)"
-                      class="m-1 custom-button"
+              <button class="m-1 custom-button"
                       data-test="filter-button-all">All
               </button>
-              <button (click)="setTasksFilterStatus(TODO_FILTER_ENUM.ACTIVE)"
-                      [class.myactive]="isFilterStatus(TODO_FILTER_ENUM.ACTIVE)"
-                      class="m-1 custom-button"
+              <button class="m-1 custom-button"
                       data-test="filter-button-active">Active
               </button>
-              <button (click)="setTasksFilterStatus(TODO_FILTER_ENUM.COMPLETED)"
-                      [class.myactive]="isFilterStatus(TODO_FILTER_ENUM.COMPLETED)"
-                      class="m-1 custom-button"
+              <button class="m-1 custom-button"
                       data-test="filter-button-completed">Completed
               </button>
             </div>
 
-            <!-- List content -->
-            <div (keydown)="debugKey('W-div', $event)" class="list-content">
-              <ul (keydown)="debugKey('D-ul', $event)" class="list-group mb-0">
-                <li (dblclick)="onEditTodo(todo)"
-                    (keydown)="debugKey('C-li', $event)"
-                    *ngFor="let todo of (todos | todosFilterPipe:todosFilterChoice); index as idx"
-                    [ngClass]="{ 'line-through': todo.completed}"
-                    class="custom-li"
+            <!-- List todos content -->
+            <div class="list-content">
+              <ul class="list-group mb-0">
+                <li class="custom-li"
                     data-test="todo-item-li">
 
-                  <div *ngIf="editingTodo?.id!==todo.id; then thenShow else elseEditing"></div>
-
-                  <!-- SHOW mode template -->
-                  <ng-template #thenShow>
-                    <ng-container>
-                      <div class="d-flex align-items-center flex-grow-1">
-                        <input (change)="onToggleCompletedChange(todo)"
-                               [checked]="todo.completed"
-                               [id]="'todo'+ idx" class="form-check-input me-2"
-                               data-test="todo-item-checkbox"
-                               type="checkbox">
-                        <label [for]="'todo'+ idx" data-test="todo-item-label">{{ todo.label }}</label>
-                      </div>
-                      <button (click)="onEditTodo(todo)" class="btn btn-sm"
-                              data-test="edit-todo"
-                              ngbTooltip="Edit Todo">
-                        <fa-icon [icon]="faEdit"></fa-icon>
-                      </button>
-                      <button (click)="onRemoveTodo(todo)" class="btn btn-sm"
-                              data-test="remove-todo"
-                              ngbTooltip="Remove Todo">
-                        <fa-icon [icon]="faRemove"></fa-icon>
-                      </button>
-                    </ng-container>
-                  </ng-template>
-
-                  <!-- EDIT mode template -->
-                  <ng-template #elseEditing>
-                    <div class="input-group">
-                      <div class="d-flex align-items-center flex-grow-1">
-                        <input [id]="'todo'+ idx" class="form-check-input me-2"
-                               type="checkbox">
-                        <input #inputEdit
-                               (blur)="onExitEdit()"
-                               (input)="onInputEdit( $any($event.target).value, todo)"
-                               (keydown)="debugKey('A', $event)"
-                               (keyup.enter)="onExitEdit()"
-                               [value]="todo.label"
-                               class="form-control border-0 bg-whitline-through"
-                               data-test="input-edit"
-                        />
-                      </div>
-                    </div>
-                  </ng-template>
+                  <div class="d-flex align-items-center flex-grow-1">
+                    <!-- should show the checkbox checked when completed is true-->
+                    <input class="form-check-input me-2" data-test="todo-item-checkbox"
+                           id="todo"
+                           type="checkbox">
+                    <label data-test="todo-item-label" for="todo">Label of the Todo</label>
+                  </div>
+                  <button class="btn btn-sm"
+                          data-test="edit-todo"
+                          ngbTooltip="Edit Todo">
+                    <fa-icon [icon]="faEdit"></fa-icon>
+                  </button>
+                  <button class="btn btn-sm"
+                          data-test="remove-todo"
+                          ngbTooltip="Remove Todo">
+                    <fa-icon [icon]="faRemove"></fa-icon>
+                  </button>
 
                 </li>
               </ul>
             </div>
-            <!-- List content -->
+            <!-- List todos content -->
 
           </div>
         </div>
 
         <div class="card custom-card">
           <div class="card-body  custom-padding" data-test="remaining-message">
-            {{ todos | remainingMessage}}
+            # remaining Todos
           </div>
         </div>
 
@@ -142,5 +89,5 @@
   </div>
 </section>
 <pre>
-  {{todos | json}}
+<!--  {{todos | json}}-->
 </pre>
