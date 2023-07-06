@@ -5,10 +5,9 @@
 
         <header class="custom-header">
           <div class="container">
-            <h1 class="custom-h1">Todo App
-              is Angular coffee
+            <h2 class="custom-h1">Todo App is Angular coffee machine
               <fa-icon [icon]="faCoffee"></fa-icon>
-            </h1>
+            </h2>
 
 
           </div>
@@ -69,10 +68,9 @@
             </div>
 
             <!-- List content -->
-            <div (keydown)="debugKey('W-div', $event)" class="list-content">
-              <ul (keydown)="debugKey('D-ul', $event)" class="list-group mb-0">
+            <div class="list-content">
+              <ul class="list-group mb-0">
                 <li (dblclick)="onEditTodo(todo)"
-                    (keydown)="debugKey('C-li', $event)"
                     *ngFor="let todo of (todos | todosFilterPipe:todosFilterChoice); index as idx"
                     [ngClass]="{ 'line-through': todo.completed}"
                     class="custom-li"
@@ -113,7 +111,7 @@
                         <input #inputEdit
                                (blur)="onExitEdit()"
                                (input)="onInputEdit( $any($event.target).value, todo)"
-                               (keydown)="debugKey('A', $event)"
+                               (keydown.escape)="handleEscapeKeyboardEvent()"
                                (keyup.enter)="onExitEdit()"
                                [value]="todo.label"
                                class="form-control border-0 bg-whitline-through"

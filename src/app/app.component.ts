@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {faChevronDown, faCoffee, faEdit, faRemove} from '@fortawesome/free-solid-svg-icons';
 import {Todo, TODO_FILTER_ENUM, TodoUtils} from './todo.model';
@@ -96,15 +96,12 @@ export class AppComponent {
     }
   }
 
-  @HostListener('document:keydown', ['$event'])
-  handleEscapeKeyboardEvent(event: KeyboardEvent) {
-    console.log('handleEscapeKeyboardEvent KEYDOWN', event);
-    if (event.key === 'Escape') {
-      if (this.editingTodo !== null) {
-        this.editingTodo.label = this.editingTodoLabelPrevious as string;
-        this.editingTodo = null;
-        this.editingTodoLabelPrevious = null;
-      }
+  handleEscapeKeyboardEvent() {
+    console.log('handleEscapeKeyboardEvent KEYDOWN escape',);
+    if (this.editingTodo !== null) {
+      this.editingTodo.label = this.editingTodoLabelPrevious as string;
+      this.editingTodo = null;
+      this.editingTodoLabelPrevious = null;
     }
   }
 
