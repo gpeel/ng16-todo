@@ -60,26 +60,38 @@ describe('AppComponent', () => {
 
   it('2- should show in the UI the same todos labels and completed values as those in component.todos', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    const compiled = fixture.nativeElement;
     fixture.detectChanges();
     const todos = compiled.querySelectorAll('[data-test="todo-item-li"]');
-    expect(todos.length).toBe(app.todos.length);
-    app.todos.forEach((todo, index) => {
+    expect(todos.length).toBe(component.todos.length);
+    component.todos.forEach((todo, index) => {
       const todoElement = todos[index];
-      expect(todoElement.querySelector('label').textContent).toBe(todo.label);
-      expect(todoElement.querySelector('input[type=checkbox]').checked).toBe(todo.completed);
+      expect(todoElement.querySelector('label')!.textContent).toBe(todo.label);
+      // @ts-ignore
+      expect(todoElement.querySelector('input[type=checkbox]')!.checked).toBe(todo.completed);
     });
   });
 
   it('3- should toggle the completed state of a todo from UI click event on checkbox per line', () => {
-    const todoElement: HTMLElement = compiled.querySelector('[data-test="todo-item-li"]') as HTMLElement;
-    const checkbox: HTMLInputElement = todoElement.querySelector('[data-test="todo-item-checkbox"]') as HTMLInputElement;
+    const checkbox: HTMLInputElement = compiled.querySelector('[data-test="todo-item-checkbox"]') as HTMLInputElement;
     const initialCompletedState = component.todos[0].completed;
     checkbox.click();
     fixture.detectChanges();
     expect(component.todos[0].completed).toBe(!initialCompletedState);
     expect(checkbox.checked).toBe(!initialCompletedState);
+  });
+
+  /**
+   * By default only todo[0] will work without specific modification of HTML ...
+   * look at label-for attribute
+   */
+  it('3- should toggle the completed state of a todo from UI click event on label-for per line, test each Todo from the array component.todos', () => {
+    const labels: NodeListOf<HTMLLabelElement> = compiled.querySelectorAll('[data-test="todo-item-label"]');
+    component.todos.forEach((todo, index) => {
+      const initialCompletedState = todo.completed;
+      labels[index].click();
+      fixture.detectChanges();
+      expect(component.todos[index].completed).toBe(!initialCompletedState);
+    });
   });
 
 });

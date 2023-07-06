@@ -49,7 +49,7 @@
             <!-- List todos content -->
             <div class="list-content">
               <ul class="list-group mb-0">
-                <li *ngFor="let todo of todos"
+                <li *ngFor="let todo of todos; index as idx"
                     class="custom-li"
                     data-test="todo-item-li">
 
@@ -57,10 +57,10 @@
                     <!-- should show the checkbox checked when completed is true-->
                     <input (change)="onToggleOne(todo)"
                            [checked]="todo.completed"
-                           class="form-check-input me-2" data-test="todo-item-checkbox"
-                           id="todo"
+                           [id]="'todo'+ idx" class="form-check-input me-2"
+                           data-test="todo-item-checkbox"
                            type="checkbox">
-                    <label data-test="todo-item-label" for="todo">{{todo.label}}</label>
+                    <label [for]="'todo'+ idx" data-test="todo-item-label">{{todo.label}}</label>
                   </div>
                   <button class="btn btn-sm"
                           data-test="edit-todo"
