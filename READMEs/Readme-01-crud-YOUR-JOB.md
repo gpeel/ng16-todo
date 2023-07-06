@@ -63,17 +63,21 @@ them manually with a literal.
   change) you will have to modify the completed property of the targeted Todo yourself (On the other hand ngModel does
   all that by itself but it is obsolete and difficult to test).
 
-- to toggle one completed of a Todo you have 2 options : click directly on the checkbox or check on the label (
-  associated with a for attribute) . To make the test pass for "cliking on the label" you will have to adapt the
-  dedicated tests selectors. The feature "clicking on the checkbox" does not require tests adaptation, but in that case
-  clicking on the label will not always produce what you expect. Check it out and adpat the test.
+    - to toggle one completed of a Todo you have 2 options : click directly on the checkbox or check on the label (
+      associated with a for attribute) . To make the test pass for "cliking on the label" you will have to adapt the
+      dedicated tests selectors. The feature "clicking on the checkbox" does not require tests adaptation, but in that
+      case clicking on the label will not always produce what you expect. Check it out and adpat the test.
 
+## 4. the label is ~~crossed~~ when completes (line-through)
 
-4. Add the class  *completed* on *\<li>* when the task is completed (complete===true)
+Add the class  *line-through* on *\<li>* when the task is completed (complete===true)
 
 In the file ./src/style.css => this will use the following style definition:
 
-      .todo-list li.completed label { color: #d9d9d9; text-decoration: line-through; }
+      src/app/app.component.scss
+        .line-through {
+            text-decoration: line-through;
+        }   
 
 Check the syntax for  [ngClass] over internet (or in the slides)
 

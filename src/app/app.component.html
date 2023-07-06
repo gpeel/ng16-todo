@@ -50,6 +50,7 @@
             <div class="list-content">
               <ul class="list-group mb-0">
                 <li *ngFor="let todo of todos; index as idx"
+                    [ngClass]="{ 'line-through': todo.completed}"
                     class="custom-li"
                     data-test="todo-item-li">
 

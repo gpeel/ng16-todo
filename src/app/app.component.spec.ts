@@ -94,4 +94,24 @@ describe('AppComponent', () => {
     });
   });
 
+  // it('4- check that Todo.complete is true will make the text <li> around the <label> to have the class
+  // "line-through" ', () => { // const labels: NodeListOf<HTMLLabelElement> =
+  // compiled.querySelectorAll('[data-test="todo-item-label"]'); const lis: NodeListOf<HTMLLabelElement> =
+  // compiled.querySelectorAll('[data-test=todo-item-li]'); component.todos.forEach((todo, index) => { const
+  // initialCompletedState = todo.completed;  expect(lis[index].classList.contains('line-through')).toBe(true); }); });
+
+  it('4- check that Todo.complete is true will make the text <li> around the <label> to have the class "line-through"', () => {
+    const todoListItems = compiled.querySelectorAll('[data-test=todo-item-li]');
+    component.todos.forEach((todo, index) => {
+      const todoListItem = todoListItems[index];
+      if (todo.completed) {
+        expect(todoListItem.classList.contains('line-through'))
+          .withContext('completed Todo should have a <li>.class.linethrough').toBe(true);
+      } else {
+        expect(todoListItem.classList.contains('line-through'))
+          .withContext('not completed Todo should not have  <li>.class.linethrough').toBe(false);
+      }
+    });
+  });
+
 });
