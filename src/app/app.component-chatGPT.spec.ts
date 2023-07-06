@@ -49,7 +49,7 @@ describe('AppComponent ChapGPT', () => {
   it('should toggle the completed state of a todo', () => {
     const todo = component.todos[0];
     const completedState = todo.completed;
-    component.onToggleCompleted(todo);
+    component.onToggleOne(todo);
     expect(todo.completed).toBe(!completedState);
   });
 

@@ -82,7 +82,7 @@
                   <ng-template #thenShow>
                     <ng-container>
                       <div class="d-flex align-items-center flex-grow-1">
-                        <input (change)="onToggleCompleted(todo)"
+                        <input (change)="onToggleOne(todo)"
                                [checked]="todo.completed"
                                [id]="'todo'+ idx" class="form-check-input me-2"
                                data-test="todo-item-checkbox"

@@ -53,7 +53,7 @@ export class AppComponent {
   // }
 
   onAddTodo(): void {
-    console.log('in ADD TODO FC');
+    console.log('in ADD TODO');
     if (this.inputFormControl.value?.trim()) {
       const todo = TodoUtils.createTodo(this.inputFormControl.value.trim());
       this.todos.push(todo);
@@ -107,7 +107,7 @@ export class AppComponent {
     this.todos.forEach(todo => todo.completed = valueChecked);
   }
 
-  onToggleCompleted(todo: Todo) {
+  onToggleOne(todo: Todo) {
     todo.completed = !todo.completed;
     console.log('TOGGLE completed new value', todo);
     if (!todo.completed) {
