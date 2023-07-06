@@ -190,20 +190,15 @@ describe('AppComponent NOVA-1', () => {
     inputEditElement.dispatchEvent(new Event('input'));
     fixture.detectChanges();
 
-    spyOn(component, 'handleEscapeKeyboardEvent').and.callThrough();
-    // inputEditElement.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape'})); // bug in test only
-    document.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape'})); // OK
-    // fixture.nativeElement.querySelector('[data-test="todo-item-li"]').dispatchEvent(new KeyboardEvent('keydown',
-    // {key: 'Escape'})); // KO
-    // fixture.nativeElement.querySelector('.bg-image').dispatchEvent(new KeyboardEvent('keydown', {key:
-    // 'Escape'}));//KO
+    spyOn(component, 'onCancelEditExit').and.callThrough();
+    inputEditElement.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape'}));
 
     fixture.detectChanges();
     // await fixture.whenStable();
     // fixture.detectChanges();
     // await fixture.whenStable();
 
-    expect(component.handleEscapeKeyboardEvent).toHaveBeenCalledTimes(1);
+    expect(component.onCancelEditExit).toHaveBeenCalledTimes(1);
     expect(component.editingTodo).toBeNull();
     expect(component.todos[0].label).toBe('Go drink beers'); // Modify the expected label based on your current todos
                                                              // list

@@ -1,13 +1,12 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {faChevronDown, faCoffee, faEdit, faRemove} from '@fortawesome/free-solid-svg-icons';
+import {faCoffee, faEdit, faRemove} from '@fortawesome/free-solid-svg-icons';
 import {Todo, TODO_FILTER_ENUM, TodoUtils} from './todo.model';
 
 let count = 0;
 
 /**
- * Note-4 : also to simplify editing exit we should used a modal instead of a simple input with *ngIf.
- * That way the output scenario is much more controlled (because the user cannot click outside the modal).
+ * Note-4 : also I could have used a modal instead of a simple input to edit the label.
  */
 @Component({
   selector: 'app-root',
@@ -17,7 +16,6 @@ let count = 0;
 export class AppComponent {
   faCoffee = faCoffee;
   faEdit = faEdit;
-  faChevronDown = faChevronDown;
   faRemove = faRemove;
   // newTodoLabel: string = '';
   inputFormControl = new FormControl();
@@ -84,7 +82,7 @@ export class AppComponent {
     todo.label = value;
   }
 
-  onExitEdit() {
+  onValidEditExit() {
     console.log('onExitEdit');
     if (this.editingTodo !== null) {
       if (this.editingTodo.label.trim() === '') {
@@ -96,7 +94,7 @@ export class AppComponent {
     }
   }
 
-  handleEscapeKeyboardEvent() {
+  onCancelEditExit() {
     console.log('handleEscapeKeyboardEvent KEYDOWN escape',);
     if (this.editingTodo !== null) {
       this.editingTodo.label = this.editingTodoLabelPrevious as string;
@@ -105,33 +103,25 @@ export class AppComponent {
     }
   }
 
-  debugKey(l: string, e: any) {
-    console.log('debugKey', l, e);
-  }
-
   onToggleAll(valueChecked: boolean): void {
     this.todos.forEach(todo => todo.completed = valueChecked);
   }
 
-  /**
-   * after a change of completed flag in the array todos, we can now have uncompleted tasks
-   * => So we must check.
-   * If is the case => uncheck the toggleAll checkbox
-   */
-  onToggleCompletedChange(todo: Todo) {
+  onToggleCompleted(todo: Todo) {
     todo.completed = !todo.completed;
-    console.log('TOGGLE completed', todo);
+    console.log('TOGGLE completed new value', todo);
     if (!todo.completed) {
       console.log('one todo is not completed');
       this.inputToggleAllFormControl.setValue(false);
     } else {
+      /**
+       * after a change of completed flag in the array todos, we can now have uncompleted tasks
+       * => So we must check.
+       * If is the case => uncheck the toggleAll checkbox
+       */
       // if all todos are completed, then check the toggleAll checkbox
       this.todos.every(t => t.completed) && this.inputToggleAllFormControl.setValue(true);
     }
-    // check if this todo turns uncompleted
-    // if (this.todos.some(todo => !todo.completed)) {
-    //   console.log('some todos are not completed');
-    // }
   }
 
   // computeRemainingTodos(): number {
