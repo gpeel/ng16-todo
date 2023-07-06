@@ -11,7 +11,7 @@ describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let compiled!: HTMLElement;
 
-  beforeEach(async () => {
+  beforeEach(waitForAsync(async () => {
     await TestBed.configureTestingModule({
       declarations: [
         AppComponent,
@@ -29,15 +29,24 @@ describe('AppComponent', () => {
     component = fixture.componentInstance;
     compiled = fixture.nativeElement;
     fixture.detectChanges();
-  });
+  }));
 
   it('0- should create the app', () => {
     expect(component).toBeTruthy();
   });
 
-  it('0- should render title in a h1 tag', waitForAsync(() => {
+  it('0- should render title in a h1 tag', () => {
     expect(compiled.querySelector('header h1')!.textContent!.trim()).toContain('Todo App');
-  }));
+  });
+
+  it('1) should have 0 remaining tasks', () => {
+    expect(component.remainingTodos)
+      .withContext('The property remainingTasks should be created')
+      .toBeDefined();
+    expect(component.remainingTodos)
+      .withContext('The property remainingTasks should be initialized to 0')
+      .toBe(0);
+  });
 
   // it('should show in the UI the same todos labels and completed values as those in component.todos', () => {
   //   const fixture = TestBed.createComponent(AppComponent);

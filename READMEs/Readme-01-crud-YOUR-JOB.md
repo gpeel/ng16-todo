@@ -31,7 +31,12 @@ helps you with the linter and warnings which is very helpful.
 And for every step you will have to solve first the compile error (for example because a attribute or method does not
 exist) and then the test will probably fail on more functionnal problems before you accomplish the step.
 
-1. Create a property in AppComponent named *remainingTasks* and initialize it to zero. Then show that property in HTML.
+## 1. Create a property remainingTasks in AppComponent
+
+Create a property remainingTasks in AppComponent named *remainingTasks* and initialize it to zero. Then show that prop
+in HTML.
+
+         export class AppComponent { remainingTasks = 0; }
 
 2. Initialize a array of Task (*tasks : Task[]*) with 3 tasks and show those tasks in HTML. Each task should have 2
    properties =>   completed : boolean and label : string . And 1 task should be already completed.

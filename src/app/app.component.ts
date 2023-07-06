@@ -12,6 +12,8 @@ export class AppComponent {
   faEdit = faEdit;
   faRemove = faRemove;
 
+  remainingTodos: number = 0;
+
   todos: Todo[] = [
     {id: 0, label: 'Go drink beers', completed: false}, // duck typing works fine!, but beware of id
     TodoUtils.createTodo('Sleep', true),
