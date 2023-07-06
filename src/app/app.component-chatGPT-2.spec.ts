@@ -74,7 +74,7 @@ describe('AppComponent ChatGPT-2', () => {
     const toggleAllCheckbox: HTMLInputElement = compiled.querySelector('[data-test="toggle-all-checkbox"]') as HTMLInputElement;
     toggleAllCheckbox.click();
     fixture.detectChanges();
-    await fixture.whenStable(); // needed because of the ngModel two-way binding testing specific
+    // await fixture.whenStable(); // needed because of the ngModel two-way binding testing specific
     expect(component.todos.every(todo => todo.completed)).toBeTruthy();
     const todoElements = compiled.querySelectorAll('[data-test="todo-item-li"]');
     const checkboxes = Array.from(todoElements).map(todoElement =>

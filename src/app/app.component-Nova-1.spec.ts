@@ -127,7 +127,8 @@ describe('AppComponent NOVA-1', () => {
     spyOn(component, 'onEditTodo').and.callThrough();
     todoElement.dispatchEvent(new Event('dblclick'));
     fixture.detectChanges();
-    await fixture.whenStable(); // NOVA forgot to add await here ! it's an async call because
+    await fixture.whenStable(); // NOVA forgot to add await here !
+    // Without whenStable() there would be an async call pending because
     // I used a setTimeout in the onEditTodo() method to focus in a later CD refresh cycle
 
     const inputEditElement = fixture.debugElement.query(By.css('input[data-test="input-edit"]')).nativeElement;
@@ -143,7 +144,7 @@ describe('AppComponent NOVA-1', () => {
     spyOn(component, 'onEditTodo').and.callThrough();
     todoElement.dispatchEvent(new Event('dblclick'));
     fixture.detectChanges();
-    await fixture.whenStable();
+    // await fixture.whenStable();
 
     let inputEditElement = fixture.debugElement.query(By.css('input[data-test="input-edit"]')).nativeElement;
 
@@ -162,7 +163,7 @@ describe('AppComponent NOVA-1', () => {
 
     todoElement.dispatchEvent(new Event('dblclick'));
     fixture.detectChanges();
-    await fixture.whenStable();
+    // await fixture.whenStable();
     inputEditElement = fixture.debugElement.query(By.css('input[data-test="input-edit"]')).nativeElement;
 
     inputEditElement.value = 'Edited Todo';
@@ -182,7 +183,7 @@ describe('AppComponent NOVA-1', () => {
     spyOn(component, 'onEditTodo').and.callThrough();
     todoElement.dispatchEvent(new Event('dblclick'));
     fixture.detectChanges();
-    await fixture.whenStable();
+    // await fixture.whenStable();
 
     const inputEditElement = fixture.debugElement.query(By.css('input[data-test="input-edit"]')).nativeElement;
     inputEditElement.value = 'Edited Todo';
@@ -198,9 +199,9 @@ describe('AppComponent NOVA-1', () => {
     // 'Escape'}));//KO
 
     fixture.detectChanges();
-    await fixture.whenStable();
-    fixture.detectChanges();
-    await fixture.whenStable();
+    // await fixture.whenStable();
+    // fixture.detectChanges();
+    // await fixture.whenStable();
 
     expect(component.handleEscapeKeyboardEvent).toHaveBeenCalledTimes(1);
     expect(component.editingTodo).toBeNull();
@@ -215,8 +216,8 @@ describe('AppComponent NOVA-1', () => {
 
       filterButtonActiveElement.click();
       fixture.detectChanges();
-      await fixture.whenStable(); // because of ngModel in the input
-      fixture.detectChanges();
+      // await fixture.whenStable(); // because of ngModel in the input
+      // fixture.detectChanges();
       expect(component.todosFilterChoice).toBe(TODO_FILTER_ENUM.ACTIVE);
       let checkboxElements = fixture.nativeElement.querySelectorAll('[data-test="todo-item-checkbox"]');
       checkboxElements.forEach((checkboxElement: HTMLInputElement) => {
@@ -225,8 +226,8 @@ describe('AppComponent NOVA-1', () => {
 
       filterButtonCompletedElement.click();
       fixture.detectChanges();
-      await fixture.whenStable();
-      fixture.detectChanges();
+      // await fixture.whenStable();
+      // fixture.detectChanges();
       expect(component.todosFilterChoice).toBe(TODO_FILTER_ENUM.COMPLETED);
       checkboxElements = fixture.nativeElement.querySelectorAll('[data-test="todo-item-checkbox"]');
       checkboxElements.forEach((checkboxElement: HTMLInputElement) => {
