@@ -27,13 +27,13 @@ export class AppComponent implements OnInit {
   }
 
   onRemoveTodo(todo: Todo): void {
-    console.log('REMOVE in APP', todo);
+    console.log('onRemoveTodo', todo);
     this.todos.splice(this.todos.indexOf(todo), 1);
     this.checkSetRemaingAndToggleAllCheck();
   }
 
   onAddTodo(): void {
-    console.log('in ADD TODO');
+    console.log('onAddTodo');
     if (this.inputFormControl.value?.trim()) {
       const todo = TodoUtils.createTodo(this.inputFormControl.value.trim());
       this.todos.push(todo);
@@ -44,6 +44,7 @@ export class AppComponent implements OnInit {
   }
 
   onToggleAll(valueChecked: boolean): void {
+    console.log('onToggleAll', valueChecked);
     this.todos.forEach(todo => todo.completed = valueChecked);
     this.checkSetRemaingAndToggleAllCheck();
   }
@@ -56,7 +57,7 @@ export class AppComponent implements OnInit {
 
   checkSetRemaingAndToggleAllCheck(): void {
     this.remainingTodos = this.todos.filter(t => !t.completed).length;
-    console.log('checkAndSetToggleAll => uncompleted=', this.remainingTodos);
+    console.log('checkAndSetToggleAll => remaining todos=', this.remainingTodos);
     this.remainingTodos === 0 ? this.inputToggleAllFormControl.setValue(true) : this.inputToggleAllFormControl.setValue(false);
   }
 
