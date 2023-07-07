@@ -3,6 +3,8 @@ import {FormControl} from '@angular/forms';
 import {faCoffee, faEdit, faRemove} from '@fortawesome/free-solid-svg-icons';
 import {Todo, TodoUtils} from './todo.model';
 
+let counter: number = 1;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -59,6 +61,19 @@ export class AppComponent implements OnInit {
     this.remainingTodos = this.todos.filter(t => !t.completed).length;
     console.log('checkAndSetToggleAll => remaining todos=', this.remainingTodos);
     this.remainingTodos === 0 ? this.inputToggleAllFormControl.setValue(true) : this.inputToggleAllFormControl.setValue(false);
+  }
+
+  computeRemainingMessage(): string {
+    console.log('RemainingTasks Pipe computates:' + counter++);
+    const num = this.todos.filter(t => !t.completed).length;
+    switch (num) {
+      case 0:
+        return 'No remaining todos';
+      case 1:
+        return 'One remaining todo';
+      default:
+        return `${num} remaining todos`;
+    }
   }
 
 }

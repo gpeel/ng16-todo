@@ -6,7 +6,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 // import {userEvent} from '@testing-library/user-event/setup/index';  KOOO
 // import userEvent from '@testing-library/user-event'; // OK
 import {AppComponent} from './app.component';
-import {RemainingMessagePipe} from './remaining-message.pipe';
 import {Todo, TodoUtils} from './todo.model';
 
 describe('AppComponent', () => {
@@ -18,7 +17,6 @@ describe('AppComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        RemainingMessagePipe,
       ],
       imports: [
         FormsModule,

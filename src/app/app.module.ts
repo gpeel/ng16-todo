@@ -5,12 +5,10 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppComponent} from './app.component';
-import {RemainingMessagePipe} from './remaining-message.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    RemainingMessagePipe,
+    AppComponent
   ],
   imports: [
     BrowserModule,
