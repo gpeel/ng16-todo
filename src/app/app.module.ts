@@ -6,11 +6,13 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppComponent} from './app.component';
 import {RemainingMessagePipe} from './remaining-message.pipe';
+import {TodosFilterPipe} from './todos-filter.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     RemainingMessagePipe,
+    TodosFilterPipe,
   ],
   imports: [
     BrowserModule,

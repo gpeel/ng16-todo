@@ -38,13 +38,19 @@
               <!-- toggle all todos to completed-->
 
               <!-- Filtering Action button -->
-              <button class="m-1 custom-button"
+              <button (click)="setTasksFilterStatus(TODO_FILTER_ENUM.ALL)"
+                      [class.myactive]="isFilterStatus(TODO_FILTER_ENUM.ALL)"
+                      class="m-1 custom-button"
                       data-test="filter-button-all">All
               </button>
-              <button class="m-1 custom-button"
+              <button (click)="setTasksFilterStatus(TODO_FILTER_ENUM.ACTIVE)"
+                      [class.myactive]="isFilterStatus(TODO_FILTER_ENUM.ACTIVE)"
+                      class="m-1 custom-button"
                       data-test="filter-button-active">Active
               </button>
-              <button class="m-1 custom-button"
+              <button (click)="setTasksFilterStatus(TODO_FILTER_ENUM.COMPLETED)"
+                      [class.myactive]="isFilterStatus(TODO_FILTER_ENUM.COMPLETED)"
+                      class="m-1 custom-button"
                       data-test="filter-button-completed">Completed
               </button>
             </div>
@@ -52,7 +58,7 @@
             <!-- List todos content -->
             <div class="list-content">
               <ul class="list-group mb-0">
-                <li *ngFor="let todo of todos; index as idx"
+                <li *ngFor="let todo of (todos | todosFilterPipe:filterChoice); index as idx"
                     [ngClass]="{ 'line-through': todo.completed}"
                     class="custom-li"
                     data-test="todo-item-li">

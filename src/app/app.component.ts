@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {faCoffee, faEdit, faRemove} from '@fortawesome/free-solid-svg-icons';
-import {Todo, TodoUtils} from './todo.model';
+import {Todo, TODO_FILTER_ENUM, TodoUtils} from './todo.model';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +15,8 @@ export class AppComponent implements OnInit {
   inputFormControl = new FormControl();
   inputToggleAllFormControl = new FormControl();
   remainingTodos: number = 0;
+  filterChoice: TODO_FILTER_ENUM = TODO_FILTER_ENUM.ALL;
+  TODO_FILTER_ENUM = TODO_FILTER_ENUM;
   todos: Todo[] = [
     {id: 0, label: 'Go drink beers', completed: false}, // duck typing works fine!, but beware of id
     TodoUtils.createTodo('Sleep', true),
@@ -59,6 +61,14 @@ export class AppComponent implements OnInit {
     this.remainingTodos = this.todos.filter(t => !t.completed).length;
     console.log('checkAndSetToggleAll => remaining todos=', this.remainingTodos);
     this.remainingTodos === 0 ? this.inputToggleAllFormControl.setValue(true) : this.inputToggleAllFormControl.setValue(false);
+  }
+
+  setTasksFilterStatus(filter: TODO_FILTER_ENUM) {
+    this.filterChoice = filter;
+  }
+
+  isFilterStatus(filter: TODO_FILTER_ENUM) {
+    return this.filterChoice === filter;
   }
 
 }

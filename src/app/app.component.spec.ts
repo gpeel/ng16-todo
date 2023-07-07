@@ -8,6 +8,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AppComponent} from './app.component';
 import {RemainingMessagePipe} from './remaining-message.pipe';
 import {Todo, TodoUtils} from './todo.model';
+import {TodosFilterPipe} from './todos-filter.pipe';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -19,6 +20,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         RemainingMessagePipe,
+        TodosFilterPipe,
       ],
       imports: [
         FormsModule,

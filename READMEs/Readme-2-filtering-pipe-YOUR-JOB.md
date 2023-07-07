@@ -8,6 +8,12 @@ The main feature goal if to show only the todos you want to see.
 
 The second goal is to show the number of remaining todos with a Pipe.
 
+## New Pipe
+
+Important : When you create a new Pipe you have to add it to the declarations of the module where you want to use it. So
+here you have to add your pipe to the AppModule and also in the declaration for the tests in
+src/app/app.component.spec.ts
+
 ## Strategy for filtering
 
 The strategy is to use button to set an attribute on the AppComponent memorizing that choice. This attribute will be
@@ -56,3 +62,4 @@ Code and use a TodosFilterPipe
   pure: true   // default value
 })
 ````
+
