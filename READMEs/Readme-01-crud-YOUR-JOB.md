@@ -104,10 +104,16 @@ Add a Todo when clicking typing text into the form.input + click enter or click 
 When clicking on the checkbox on the top of the list, all Todos should be toggled to the opposite state (complete or not
 complete).
 
-- Also when you reach all Todos as all completed (for examplz when completing the last Todo by click its local
-  checkbox), the toggle-all checkbox should be checked automatically.
-- If one Todo turned agin not competed or a new uncompeted Todo is added, the toggle-all checkbox should be unchecked
+- Also when you reach all Todos as all completed (for example when completing the last uncompleted Todo by clicking its
+  local toggleOne checkbox), the toggle-all checkbox should be checked automatically.
+- If one Todo turned again not competed or a new uncompelted Todo is added, the toggle-all checkbox should be unchecked
   automatically.
+- To code that you have to defined a reused method to check the state ot component.todos array.
+- And you have to execute that method in the 3 following cases for each action or init of th UI:
+    - when clicking on the toggle-all checkbox
+    - when adding a new Todo
+    - when toggling one Todo
+- consequently you will have to adapt one previous test to make it pass with the new feature.
 
 8. Count how many tasks are not completed, show it on the UI and adapt the tests to make them pass
 

@@ -2,8 +2,12 @@ import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+// hand coded imports
+// import {userEvent} from '@testing-library/user-event/setup/index';  KOOO
+// import userEvent from '@testing-library/user-event'; // OK
 import {AppComponent} from './app.component';
 import {RemainingMessagePipe} from './remaining-message.pipe';
+import {Todo, TodoUtils} from './todo.model';
 import {TodosFilterPipePipe} from './todos-filter.pipe';
 
 describe('AppComponent', () => {
@@ -45,7 +49,7 @@ describe('AppComponent', () => {
       .toBeDefined();
     expect(component.remainingTodos)
       .withContext('The property remainingTasks should be initialized to 0')
-      .toBe(0);
+      .toBe(3);
   });
 
   it('2- should have 4 Todo(s) on the component', waitForAsync(() => {
@@ -139,7 +143,7 @@ describe('AppComponent', () => {
     expect(component.todos.every(todo => todo.completed)).toBeTruthy();
   });
 
-  it('7- should toggle all todos to completed from UI event', async () => {
+  it('7- should toggle all todos to completed from UI event checking the toggleAll checkbox', async () => {
     const toggleAllCheckbox: HTMLInputElement = compiled.querySelector('[data-test="toggle-all-checkbox"]') as HTMLInputElement;
     toggleAllCheckbox.click();
     fixture.detectChanges();
@@ -154,7 +158,161 @@ describe('AppComponent', () => {
 
   });
 
-  // missing interaction toogleone to check toggleall
-  // missing interaction addTodo to check toggleone
+  /**
+   * With simulation in JS => it never works Because we don't have the same behavior as a real user.
+   * For example the toogleAll checkbox is not checked when we don't click on it !
+   * SO THIS COULD BE INTERESTING TO NOTE. Only UI entry are correct.
+   * If new todos array arrives, or is modified by other means than this Panel, the UI would NOT be updated correctly.
+   * This PB could be resolved with NGXS-Store (Redux store) or NGRX-Store (less used and more complex and badly
+   * verbose) or with a hard-coded solution with a Subject/Observable pattern.
+   */
+  xit('7- should uncheck the toggleAll checkbox when a new Todo is created', async () => {
+    const toggleAllCheckbox: HTMLInputElement = compiled.querySelector('[data-test="toggle-all-checkbox"]') as HTMLInputElement;
+    // SImulating turning all Todos to completed
+    component.onToggleAll(true);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(toggleAllCheckbox.checked).toBe(true);
+    // Simulate creating a new Todo
+    const todoLabel = 'New Todo';
+    component.inputFormControl.setValue(todoLabel);
+    component.onAddTodo();
+    fixture.detectChanges();
+    expect(toggleAllCheckbox.checked).toBe(false);
+  });
+
+  it('7- should uncheck the toggleAll checkbox when a Todo is turned uncompleted by toggleOne', () => {
+    const toggleAllCheckbox: HTMLInputElement = compiled.querySelector('[data-test="toggle-all-checkbox"]') as HTMLInputElement;
+    // Simulate toggling a Todo's completed state to uncompleted
+    const todoIndex = 0; // Choose the index of the Todo you want to simulate
+    component.onToggleOne(component.todos[todoIndex]);
+    fixture.detectChanges();
+    expect(toggleAllCheckbox.checked).toBe(false);
+  });
+
+  it('7-1 should uncheck the toggleAll checkbox when a new Todo is created', () => {
+    // Initialize component.todos
+    // so that the toggleAll checkbox is checked
+    component.todos.forEach(todo => todo.completed = true);
+    component.checkAndSetToggleAll();
+    fixture.detectChanges();
+    const toggleAllCheckbox: HTMLInputElement = compiled.querySelector('[data-test="toggle-all-checkbox"]') as HTMLInputElement;
+    expect(toggleAllCheckbox.checked).toBe(true);
+    //
+    const inputElement: HTMLInputElement = compiled.querySelector('[data-test="input-todo"]') as HTMLInputElement;
+    const addButton: HTMLButtonElement = compiled.querySelector('[data-test="add-button"]') as HTMLButtonElement;
+
+    // Set input value and trigger input event
+    inputElement.value = 'New Todo';
+    inputElement.dispatchEvent(new Event('input'));
+
+    // Trigger click event on add button
+    addButton.click();
+    fixture.detectChanges();
+    expect(toggleAllCheckbox.checked).toBe(false);
+  });
+
+  it('7-2 should uncheck the toggleAll checkbox when a Todo is turned uncompleted by toggleOne', () => {
+    // Initialize component.todos
+    // so that the toggleAll checkbox is checked
+    component.todos.forEach(todo => todo.completed = true);
+    component.checkAndSetToggleAll();
+    fixture.detectChanges();
+    const toggleAllCheckbox: HTMLInputElement = compiled.querySelector('[data-test="toggle-all-checkbox"]') as HTMLInputElement;
+    expect(toggleAllCheckbox.checked).toBe(true);
+    const checkbox: HTMLInputElement = compiled.querySelector('[data-test="todo-item-checkbox"]') as HTMLInputElement;
+
+    // Trigger click event on the checkbox of the first Todo
+    checkbox.click();
+    fixture.detectChanges();
+
+    expect(toggleAllCheckbox.checked).toBe(false);
+  });
+
+  it('7-3 should check the toggleAll checkbox when the last uncompleted Todo is turned completed by toggleOne', async () => {
+    const toggleAllCheckbox: HTMLInputElement = compiled.querySelector('[data-test="toggle-all-checkbox"]') as HTMLInputElement;
+    // NOT HERE !
+    // const checkboxes: NodeListOf<HTMLInputElement> = compiled.querySelectorAll('[data-test="todo-item-checkbox"]');
+    // NOT HERE !
+    // by default, the toggleAll checkbox is unchecked at init
+    // because there are 3 uncompleted Todo
+    // SO load a list where onely ONE Todo is uncompleted
+    const TODOS_WITH_ONLY_ONE_UNCOMPLETED: Todo[] = [
+      TodoUtils.createTodo('Go drink beers', false),
+      TodoUtils.createTodo('Sleep', true),
+      TodoUtils.createTodo('Play sports', true),
+      TodoUtils.createTodo('Go to Mars', true),
+    ];
+    component.todos = TODOS_WITH_ONLY_ONE_UNCOMPLETED;
+    component.checkAndSetToggleAll();
+    fixture.detectChanges();
+    expect(toggleAllCheckbox.checked).toBe(false);
+    // checkbox SHOULD BE SELECTED HERE
+    // If you do it on the first LINE, it will not work
+    // Because the NODES will be detached !
+    const checkboxes: NodeListOf<HTMLInputElement> = compiled.querySelectorAll('[data-test="todo-item-checkbox"]');
+
+    // ACT
+    // Trigger click event on the checkbox of the last uncompleted Todo
+    const lastUncompletedCheckbox = checkboxes[0];
+    expect(lastUncompletedCheckbox.checked).toBe(false);
+    // userEvent.setup();
+    // await userEvent.click(lastUncompletedCheckbox);
+    // fireEvent.click(lastUncompletedCheckbox);
+    lastUncompletedCheckbox.click();
+    // lastUncompletedCheckbox.dispatchEvent(new Event('click')); //why not working with click() ? => because of the
+    // with dispatchEvent, the checkboc.checked is not updated to true
+    // async component.onToggleOne(component.todos[0]); // if we call the method directly, it works
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    console.log('ALL TODOS', component.todos);
+    console.log('checkboxes[0]', checkboxes[0], checkboxes[0].checked);
+
+    expect(toggleAllCheckbox.checked).toBe(true);
+  });
+
+  it('7-4 should check the toggleAll checkbox when the last uncompleted Todo is removed', () => {
+
+    const toggleAllCheckbox: HTMLInputElement = compiled.querySelector('[data-test="toggle-all-checkbox"]') as HTMLInputElement;
+    // NOT HERE !
+    // const checkboxes: NodeListOf<HTMLInputElement> = compiled.querySelectorAll('[data-test="todo-item-checkbox"]');
+    // NOT HERE !
+    // by default, the toggleAll checkbox is unchecked at init
+    // because there are 3 uncompleted Todo
+    // SO load a list where onely ONE Todo is uncompleted
+    const TODOS_WITH_ONLY_ONE_UNCOMPLETED: Todo[] = [
+      TodoUtils.createTodo('Go drink beers', false),
+      TodoUtils.createTodo('Sleep', true),
+      TodoUtils.createTodo('Play sports', true),
+      TodoUtils.createTodo('Go to Mars', true),
+    ];
+    component.todos = TODOS_WITH_ONLY_ONE_UNCOMPLETED;
+    component.checkAndSetToggleAll();
+    fixture.detectChanges();
+    expect(toggleAllCheckbox.checked).toBe(false);
+
+    //OK
+    // const removeButtons = compiled.querySelectorAll('[data-test="remove-todo"]') as NodeListOf<HTMLButtonElement>;
+    // removeButtons[0].click();
+
+    // or finer UI seletion
+    // Trigger click event on the remove button of the last uncompleted Todo
+    const lastUncompletedTodoInput =
+      compiled.querySelector('[data-test="todo-item-checkbox"]:not(:checked)');
+    const parentLi = lastUncompletedTodoInput!.closest('[data-test="todo-item-li"]') as HTMLLIElement;
+    const removeButton = parentLi.querySelector('[data-test="remove-todo"]') as HTMLButtonElement;
+    console.log('lastUncompletedRemoveButton', parentLi.querySelector('[data-test="remove-todo"]'));
+    removeButton.click();
+
+    fixture.detectChanges();
+
+    expect(toggleAllCheckbox.checked).toBe(true);
+    component.todos.forEach(todo => expect(todo.completed).toBe(true));
+  });
 
 });

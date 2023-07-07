@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {faCoffee, faEdit, faRemove} from '@fortawesome/free-solid-svg-icons';
 import {Todo, TodoUtils} from './todo.model';
@@ -8,15 +8,13 @@ import {Todo, TodoUtils} from './todo.model';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   faCoffee = faCoffee;
   faEdit = faEdit;
   faRemove = faRemove;
-
   inputFormControl = new FormControl();
   inputToggleAllFormControl = new FormControl();
   remainingTodos: number = 0;
-
   todos: Todo[] = [
     {id: 0, label: 'Go drink beers', completed: false}, // duck typing works fine!, but beware of id
     TodoUtils.createTodo('Sleep', true),
@@ -24,9 +22,14 @@ export class AppComponent {
     TodoUtils.createTodo('Go to Mars'),
   ];
 
+  ngOnInit(): void {
+    this.checkAndSetToggleAll();
+  }
+
   onRemoveTodo(todo: Todo): void {
     console.log('REMOVE in APP', todo);
     this.todos.splice(this.todos.indexOf(todo), 1);
+    this.checkAndSetToggleAll();
   }
 
   onAddTodo(): void {
@@ -35,6 +38,8 @@ export class AppComponent {
       const todo = TodoUtils.createTodo(this.inputFormControl.value.trim());
       this.todos.push(todo);
       this.inputFormControl.setValue('');
+      this.inputToggleAllFormControl.setValue(false); // we are sure that the new todo is not completed
+      // this.checkAndSetToggleAll(); // overkill algo but more readable
     }
   }
 
@@ -43,7 +48,15 @@ export class AppComponent {
   }
 
   onToggleOne(todo: Todo) {
+    console.log('onToggleOne', todo);
     todo.completed = !todo.completed;
+    this.checkAndSetToggleAll();
+  }
+
+  checkAndSetToggleAll(): void {
+    this.remainingTodos = this.todos.filter(t => !t.completed).length;
+    console.log('checkAndSetToggleAll => uncompleted=', this.remainingTodos);
+    this.remainingTodos === 0 ? this.inputToggleAllFormControl.setValue(true) : this.inputToggleAllFormControl.setValue(false);
   }
 
 }
