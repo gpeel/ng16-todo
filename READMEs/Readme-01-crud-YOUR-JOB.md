@@ -119,7 +119,7 @@ complete).
 
 Show a message telling how many Todos are remaining. For example : "3 remaining tasks".
 
-Strategy :
+Possible Strategies :
 
 - you can use a method to count the remaining Todos and show the result in the HTML.
 - Or you can use a pipe to do the same thing.
@@ -132,6 +132,9 @@ Strategy :
 Example using a i18nPlural pipe :
 
       <div>{{ messages.length | i18nPlural: {'=0': 'No messages.', '=1': 'One message.', 'other': '# messages.'} }}</div>
+
+**********BUT********** since the chapter Pipe is after this exercise, you can use a method to compute the message !
+ANd we will do better in next chapter with a pipe.
 
 The Messages SHOULD be (to make the tests work):
 

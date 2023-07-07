@@ -25,7 +25,7 @@ export class AppComponent {
   //   TodoUtils.createTodo('Go to Mars'),
   // ];
 
-  // methods that could be used for the other steps
+  // methods that COULD be used for the other steps
   // I used the prefix onXxxxx when the method is used in the template
 
   // onRemoveTodo(todo: Todo): void {
