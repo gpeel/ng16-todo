@@ -16,9 +16,9 @@
 
             <!--  Form to add new todo-->
 
-            <form (ngSubmit)="onAddTodo()" class="todo-form-input">
+            <form class="todo-form-input">
               <div class="form-outline flex-fill">
-                <input [formControl]="inputFormControl" autocomplete="off" autofocus
+                <input autocomplete="off" autofocus
                        class="form-control"
                        data-test="input-todo" placeholder="Type a new task ...">
               </div>
@@ -29,12 +29,11 @@
             <div class="d-flex align-items-center mb-4">
 
               <!-- toggle all todos to completed or uncompleted -->
-              <input (click)="onToggleAll($any($event.target).checked )"
-                     [formControl]="inputToggleAllFormControl"
-                     class="me-3 form-check-input toggle-all-checkbox"
-                     data-test="toggle-all-checkbox"
-                     ngbTooltip="Toggle All Todos"
-                     type="checkbox">
+              <input
+                      class="me-3 form-check-input toggle-all-checkbox"
+                      data-test="toggle-all-checkbox"
+                      ngbTooltip="Toggle All Todos"
+                      type="checkbox">
               <!-- toggle all todos to completed-->
 
               <!-- Filtering Action button -->
@@ -52,26 +51,25 @@
             <!-- List todos content -->
             <div class="list-content">
               <ul class="list-group mb-0">
-                <li *ngFor="let todo of todos; index as idx"
-                    [ngClass]="{ 'line-through': todo.completed}"
-                    class="custom-li"
-                    data-test="todo-item-li">
+                <!-- One li corresponds to one todo-->
+                <li
+                        class="custom-li"
+                        data-test="todo-item-li">
 
                   <div class="d-flex align-items-center flex-grow-1">
                     <!-- should show the checkbox checked when completed is true-->
-                    <input (click)="onToggleOne(todo)"
-                           [checked]="todo.completed"
-                           [id]="'todo'+ idx" class="form-check-input me-2"
-                           data-test="todo-item-checkbox"
-                           type="checkbox">
-                    <label [for]="'todo'+ idx" data-test="todo-item-label">{{todo.label}}</label>
+                    <input
+                            class="form-check-input me-2" data-test="todo-item-checkbox"
+                            id="todo"
+                            type="checkbox">
+                    <label data-test="todo-item-label" for="todo">Show here the Label of the Todo</label>
                   </div>
                   <button class="btn btn-sm"
                           data-test="edit-todo"
                           ngbTooltip="Edit Todo">
                     <fa-icon [icon]="faEdit"></fa-icon>
                   </button>
-                  <button (click)="onRemoveTodo(todo)" class="btn btn-sm"
+                  <button class="btn btn-sm"
                           data-test="remove-todo"
                           ngbTooltip="Remove Todo">
                     <fa-icon [icon]="faRemove"></fa-icon>
@@ -87,7 +85,7 @@
 
         <div class="card custom-card">
           <div class="card-body  custom-padding" data-test="remaining-message">
-            {{ todos | remainingMessage}}
+            # todos remaining
           </div>
         </div>
 

@@ -1,63 +1,47 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {Component} from '@angular/core';
 import {faCoffee, faEdit, faRemove} from '@fortawesome/free-solid-svg-icons';
-import {Todo, TodoUtils} from './todo.model';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   faCoffee = faCoffee;
   faEdit = faEdit;
   faRemove = faRemove;
-  inputFormControl = new FormControl();
-  inputToggleAllFormControl = new FormControl();
-  remainingTodos: number = 0;
-  todos: Todo[] = [
-    {id: 0, label: 'Go drink beers', completed: false}, // duck typing works fine!, but beware of id
-    TodoUtils.createTodo('Sleep', true),
-    TodoUtils.createTodo('Play sports'),
-    TodoUtils.createTodo('Go to Mars'),
-  ];
 
-  ngOnInit(): void {
-    this.checkSetRemaingAndToggleAllCheck();
-  }
+  //
+  // Answer tp step 1
+  //
+  // remainingTodos: number = 0;
+  //
+  // Answer tp step 2
+  //
+  // todos: Todo[] = [
+  //   {id: 0, label: 'Go drink beers', completed: false}, // duck typing works fine!, but beware of id
+  //   TodoUtils.createTodo('Sleep', true),
+  //   TodoUtils.createTodo('Play sports'),
+  //   TodoUtils.createTodo('Go to Mars'),
+  // ];
 
-  onRemoveTodo(todo: Todo): void {
-    console.log('REMOVE in APP', todo);
-    this.todos.splice(this.todos.indexOf(todo), 1);
-    this.checkSetRemaingAndToggleAllCheck();
-  }
+  // methods that could be used for the other steps
+  // I used the prefix onXxxxx when the method is used in the template
 
-  onAddTodo(): void {
-    console.log('in ADD TODO');
-    if (this.inputFormControl.value?.trim()) {
-      const todo = TodoUtils.createTodo(this.inputFormControl.value.trim());
-      this.todos.push(todo);
-      this.inputFormControl.setValue('');
-      this.inputToggleAllFormControl.setValue(false); // we are sure that the new todo is not completed
-      // this.checkAndSetToggleAll(); // overkill algo but more readable
-    }
-  }
+  // onRemoveTodo(todo: Todo): void {
+  //   console.log('onRemoveTodo', todo);
+  // }
 
-  onToggleAll(valueChecked: boolean): void {
-    this.todos.forEach(todo => todo.completed = valueChecked);
-    this.checkSetRemaingAndToggleAllCheck();
-  }
+  // onAddTodo(): void {
+  //   console.log('onAddTodo');
+  // }
 
-  onToggleOne(todo: Todo) {
-    console.log('onToggleOne', todo);
-    todo.completed = !todo.completed;
-    this.checkSetRemaingAndToggleAllCheck();
-  }
+  // onToggleAll(valueChecked: boolean): void {
+  //   console.log( 'onToggleAll', valueChecked);
+  // }
 
-  checkSetRemaingAndToggleAllCheck(): void {
-    this.remainingTodos = this.todos.filter(t => !t.completed).length;
-    console.log('checkAndSetToggleAll => uncompleted=', this.remainingTodos);
-    this.remainingTodos === 0 ? this.inputToggleAllFormControl.setValue(true) : this.inputToggleAllFormControl.setValue(false);
-  }
+  // onToggleOne(todo: Todo) {
+  //   console.log('onToggleOne', todo);
+  // }
 
 }
