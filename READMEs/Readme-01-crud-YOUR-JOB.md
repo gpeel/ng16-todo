@@ -115,14 +115,28 @@ complete).
     - when toggling one Todo
 - consequently you will have to adapt one previous test to make it pass with the new feature.
 
-8. Count how many tasks are not completed, show it on the UI and adapt the tests to make them pass
+## 8. Show message telling how many Todos are remaining
 
-9. Use i18nPlural to have a better label than "remaining tasks" when you have no completed or only one completed task.
+Show a message telling how many Todos are remaining. For example : "3 remaining tasks".
 
-Example:
+Strategy :
+
+- you can use a method to count the remaining Todos and show the result in the HTML.
+- Or you can use a pipe to do the same thing.
+- the pipe or the method should be used/called in the HTML with the following syntax : {{ myMethod() }} or {{ myPipe |
+  myPipeArg }}
+- the myMethod() could recompute the message using the todos array, or use directly remainingTasks property.
+- the Pipe could have as entry the todos array or the remainingTasks property.
+- you could even use the Pipe i18nPlural given by Angular.
+
+Example using a i18nPlural pipe :
 
       <div>{{ messages.length | i18nPlural: {'=0': 'No messages.', '=1': 'One message.', 'other': '# messages.'} }}</div>
 
+The Messages SHOULD be (to make the tests work):
 
+- No todos remaining
+- # todos remaining (# being the number of remaining todos)
+- 1 todo remaining
 
 

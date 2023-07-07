@@ -8,7 +8,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AppComponent} from './app.component';
 import {RemainingMessagePipe} from './remaining-message.pipe';
 import {Todo, TodoUtils} from './todo.model';
-import {TodosFilterPipePipe} from './todos-filter.pipe';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -19,7 +18,6 @@ describe('AppComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        TodosFilterPipePipe,
         RemainingMessagePipe,
       ],
       imports: [
@@ -159,14 +157,16 @@ describe('AppComponent', () => {
   });
 
   /**
-   * With simulation in JS => it never works Because we don't have the same behavior as a real user.
-   * For example the toogleAll checkbox is not checked when we don't click on it !
-   * SO THIS COULD BE INTERESTING TO NOTE. Only UI entry are correct.
-   * If new todos array arrives, or is modified by other means than this Panel, the UI would NOT be updated correctly.
-   * This PB could be resolved with NGXS-Store (Redux store) or NGRX-Store (less used and more complex and badly
-   * verbose) or with a hard-coded solution with a Subject/Observable pattern.
+   * With simulation in JS => it never works Because we don't have the same behavior as with a real user.
+   * For example the toggleAll checkbox is not checked when we don't click on it !
+   * SO THIS COULD BE INTERESTING TO NOTE. Only UI entry will make correct state of all data and UI.
+   * If new todos array arrive, or one is is modified by other means than the UI, the UI would NOT be updated
+   * correctly. This PB could be resolved with NGXS-Store (Redux store) or NGRX-Store (less used and more complex and
+   * badly verbose) or with a hard-coded solution with a Subject/Observable pattern.
+   * NOTE: the above pb has been resolved when adding checkSetRemainingAndToggleAll() in the component and calling it
+   * in each method that could modify the todos array, And not only in the ngOnInit() method.
    */
-  xit('7- should uncheck the toggleAll checkbox when a new Todo is created', async () => {
+  it('7- should uncheck the toggleAll checkbox when a new Todo is created', async () => {
     const toggleAllCheckbox: HTMLInputElement = compiled.querySelector('[data-test="toggle-all-checkbox"]') as HTMLInputElement;
     // SImulating turning all Todos to completed
     component.onToggleAll(true);
@@ -182,20 +182,11 @@ describe('AppComponent', () => {
     expect(toggleAllCheckbox.checked).toBe(false);
   });
 
-  it('7- should uncheck the toggleAll checkbox when a Todo is turned uncompleted by toggleOne', () => {
-    const toggleAllCheckbox: HTMLInputElement = compiled.querySelector('[data-test="toggle-all-checkbox"]') as HTMLInputElement;
-    // Simulate toggling a Todo's completed state to uncompleted
-    const todoIndex = 0; // Choose the index of the Todo you want to simulate
-    component.onToggleOne(component.todos[todoIndex]);
-    fixture.detectChanges();
-    expect(toggleAllCheckbox.checked).toBe(false);
-  });
-
   it('7-1 should uncheck the toggleAll checkbox when a new Todo is created', () => {
     // Initialize component.todos
     // so that the toggleAll checkbox is checked
     component.todos.forEach(todo => todo.completed = true);
-    component.checkAndSetToggleAll();
+    component.checkSetRemaingAndToggleAllCheck();
     fixture.detectChanges();
     const toggleAllCheckbox: HTMLInputElement = compiled.querySelector('[data-test="toggle-all-checkbox"]') as HTMLInputElement;
     expect(toggleAllCheckbox.checked).toBe(true);
@@ -217,7 +208,7 @@ describe('AppComponent', () => {
     // Initialize component.todos
     // so that the toggleAll checkbox is checked
     component.todos.forEach(todo => todo.completed = true);
-    component.checkAndSetToggleAll();
+    component.checkSetRemaingAndToggleAllCheck();
     fixture.detectChanges();
     const toggleAllCheckbox: HTMLInputElement = compiled.querySelector('[data-test="toggle-all-checkbox"]') as HTMLInputElement;
     expect(toggleAllCheckbox.checked).toBe(true);
@@ -245,7 +236,7 @@ describe('AppComponent', () => {
       TodoUtils.createTodo('Go to Mars', true),
     ];
     component.todos = TODOS_WITH_ONLY_ONE_UNCOMPLETED;
-    component.checkAndSetToggleAll();
+    component.checkSetRemaingAndToggleAllCheck();
     fixture.detectChanges();
     expect(toggleAllCheckbox.checked).toBe(false);
     // checkbox SHOULD BE SELECTED HERE
@@ -292,7 +283,7 @@ describe('AppComponent', () => {
       TodoUtils.createTodo('Go to Mars', true),
     ];
     component.todos = TODOS_WITH_ONLY_ONE_UNCOMPLETED;
-    component.checkAndSetToggleAll();
+    component.checkSetRemaingAndToggleAllCheck();
     fixture.detectChanges();
     expect(toggleAllCheckbox.checked).toBe(false);
 
@@ -314,5 +305,7 @@ describe('AppComponent', () => {
     expect(toggleAllCheckbox.checked).toBe(true);
     component.todos.forEach(todo => expect(todo.completed).toBe(true));
   });
+
+  // it('should have message "No todos remaining" when todos are all completed', () => {
 
 });

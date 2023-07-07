@@ -23,13 +23,13 @@ export class AppComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.checkAndSetToggleAll();
+    this.checkSetRemaingAndToggleAllCheck();
   }
 
   onRemoveTodo(todo: Todo): void {
     console.log('REMOVE in APP', todo);
     this.todos.splice(this.todos.indexOf(todo), 1);
-    this.checkAndSetToggleAll();
+    this.checkSetRemaingAndToggleAllCheck();
   }
 
   onAddTodo(): void {
@@ -45,15 +45,16 @@ export class AppComponent implements OnInit {
 
   onToggleAll(valueChecked: boolean): void {
     this.todos.forEach(todo => todo.completed = valueChecked);
+    this.checkSetRemaingAndToggleAllCheck();
   }
 
   onToggleOne(todo: Todo) {
     console.log('onToggleOne', todo);
     todo.completed = !todo.completed;
-    this.checkAndSetToggleAll();
+    this.checkSetRemaingAndToggleAllCheck();
   }
 
-  checkAndSetToggleAll(): void {
+  checkSetRemaingAndToggleAllCheck(): void {
     this.remainingTodos = this.todos.filter(t => !t.completed).length;
     console.log('checkAndSetToggleAll => uncompleted=', this.remainingTodos);
     this.remainingTodos === 0 ? this.inputToggleAllFormControl.setValue(true) : this.inputToggleAllFormControl.setValue(false);
