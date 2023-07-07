@@ -137,6 +137,6 @@ The Messages SHOULD be (to make the tests work):
 
 - No todos remaining
 - # todos remaining (# being the number of remaining todos)
-- 1 todo remaining
+- One todo remaining
 
 

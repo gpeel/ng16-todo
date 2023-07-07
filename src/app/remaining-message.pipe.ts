@@ -22,7 +22,7 @@ export class RemainingMessagePipe implements PipeTransform {
       case 0:
         return 'No remaining todos';
       case 1:
-        return '1 remaining todo';
+        return 'One remaining todo';
       default:
         return `${num} remaining todos`;
     }

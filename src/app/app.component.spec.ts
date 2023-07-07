@@ -306,6 +306,42 @@ describe('AppComponent', () => {
     component.todos.forEach(todo => expect(todo.completed).toBe(true));
   });
 
-  // it('should have message "No todos remaining" when todos are all completed', () => {
+  it('8-1 should have message "No todos remaining" when todos are all completed', () => {
+    // Initialize component.todos
+    // so that all todos are completed
+    component.todos.forEach(todo => todo.completed = true);
+    component.checkSetRemaingAndToggleAllCheck(); // to sync the data : remaining and toggleAllCheck
+    fixture.detectChanges(); // to update the view
+    const noTodosRemaining: HTMLInputElement = compiled.querySelector('[data-test="remaining-message"]') as HTMLInputElement;
+    expect(noTodosRemaining.textContent!.trim()).toBe('No remaining todos');
+  });
+
+  it('8-2 should have message "# todos remaining" when  # todos aren\'t completed', () => {
+    // Initialize component.todos
+    const TODOS_2_UNCOMPLETED: Todo[] = [
+      TodoUtils.createTodo('Todo1', false),
+      TodoUtils.createTodo('Todo2', true),
+      TodoUtils.createTodo('Todo3', false),
+    ];
+    component.todos = TODOS_2_UNCOMPLETED;
+    component.checkSetRemaingAndToggleAllCheck(); // to sync the data : remaining and toggleAllCheck
+    fixture.detectChanges(); // to update the view
+    const noTodosRemaining: HTMLInputElement = compiled.querySelector('[data-test="remaining-message"]') as HTMLInputElement;
+    expect(noTodosRemaining.textContent!.trim()).toBe('2 remaining todos');
+  });
+
+  it('8-3 should have message "One todos remaining" when  # todos aren\'t completed', () => {
+    // Initialize component.todos
+    const TODOS_ONE_UNCOMPLETED: Todo[] = [
+      TodoUtils.createTodo('Todo1', true),
+      TodoUtils.createTodo('Todo2', true),
+      TodoUtils.createTodo('Todo3', false),
+    ];
+    component.todos = TODOS_ONE_UNCOMPLETED;
+    component.checkSetRemaingAndToggleAllCheck(); // to sync the data : remaining and toggleAllCheck
+    fixture.detectChanges(); // to update the view
+    const noTodosRemaining: HTMLInputElement = compiled.querySelector('[data-test="remaining-message"]') as HTMLInputElement;
+    expect(noTodosRemaining.textContent!.trim()).toBe('One remaining todo');
+  });
 
 });
