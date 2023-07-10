@@ -213,7 +213,7 @@ describe('AppComponent NOVA-1', () => {
       fixture.detectChanges();
       // await fixture.whenStable(); // because of ngModel in the input
       // fixture.detectChanges();
-      expect(component.todosFilterChoice).toBe(TODO_FILTER_ENUM.ACTIVE);
+      expect(component.filterChoice).toBe(TODO_FILTER_ENUM.ACTIVE);
       let checkboxElements = fixture.nativeElement.querySelectorAll('[data-test="todo-item-checkbox"]');
       checkboxElements.forEach((checkboxElement: HTMLInputElement) => {
         expect(checkboxElement.checked).toBeFalse();
@@ -223,7 +223,7 @@ describe('AppComponent NOVA-1', () => {
       fixture.detectChanges();
       // await fixture.whenStable();
       // fixture.detectChanges();
-      expect(component.todosFilterChoice).toBe(TODO_FILTER_ENUM.COMPLETED);
+      expect(component.filterChoice).toBe(TODO_FILTER_ENUM.COMPLETED);
       checkboxElements = fixture.nativeElement.querySelectorAll('[data-test="todo-item-checkbox"]');
       checkboxElements.forEach((checkboxElement: HTMLInputElement) => {
         expect(checkboxElement.checked).toBeTrue();

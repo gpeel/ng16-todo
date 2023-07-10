@@ -23,7 +23,7 @@ export class AppComponent {
   @ViewChild('inputEdit', {static: false}) inputEditRef!: ElementRef<HTMLInputElement>;
   editingTodo: Todo | null = null; // only one Todo could be edited at a time
   editingTodoLabelPrevious: string | null = null;
-  todosFilterChoice: TODO_FILTER_ENUM = TODO_FILTER_ENUM.ALL;
+  filterChoice: TODO_FILTER_ENUM = TODO_FILTER_ENUM.ALL;
   TODO_FILTER_ENUM = TODO_FILTER_ENUM;
   todos: Todo[] = [
     {id: 0, label: 'Go drink beers', completed: false}, // duck typing works fine!, but beware of id
@@ -130,10 +130,10 @@ export class AppComponent {
   // }
 
   setTasksFilterStatus(filter: TODO_FILTER_ENUM) {
-    this.todosFilterChoice = filter;
+    this.filterChoice = filter;
   }
 
   isFilterStatus(filter: TODO_FILTER_ENUM) {
-    return this.todosFilterChoice === filter;
+    return this.filterChoice === filter;
   }
 }

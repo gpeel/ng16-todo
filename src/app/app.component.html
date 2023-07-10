@@ -71,7 +71,7 @@
             <div class="list-content">
               <ul class="list-group mb-0">
                 <li (dblclick)="onEditTodo(todo)"
-                    *ngFor="let todo of (todos | todosFilterPipe:todosFilterChoice); index as idx"
+                    *ngFor="let todo of (todos | todosFilterPipe:filterChoice); index as idx"
                     [ngClass]="{ 'line-through': todo.completed}"
                     class="custom-li"
                     data-test="todo-item-li">

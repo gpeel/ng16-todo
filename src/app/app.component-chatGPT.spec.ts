@@ -61,12 +61,12 @@ describe('AppComponent ChapGPT', () => {
   it('should set the tasks filter status', () => {
     const filter = TODO_FILTER_ENUM.ACTIVE;
     component.setTasksFilterStatus(filter);
-    expect(component.todosFilterChoice).toBe(filter);
+    expect(component.filterChoice).toBe(filter);
   });
 
   it('should check if the filter status is active', () => {
     const filter = TODO_FILTER_ENUM.ACTIVE;
-    component.todosFilterChoice = filter;
+    component.filterChoice = filter;
     const isActive = component.isFilterStatus(filter);
     expect(isActive).toBeTruthy();
   });

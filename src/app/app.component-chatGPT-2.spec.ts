@@ -88,7 +88,7 @@ describe('AppComponent ChatGPT-2', () => {
     const filterButton: HTMLButtonElement = compiled.querySelector('[data-test="filter-button-active"]') as HTMLButtonElement;
     filterButton.click();
     fixture.detectChanges();
-    expect(component.todosFilterChoice).toBe(TODO_FILTER_ENUM.ACTIVE);
+    expect(component.filterChoice).toBe(TODO_FILTER_ENUM.ACTIVE);
     const activeFilterButton: HTMLButtonElement = compiled.querySelector('.myactive') as HTMLButtonElement;
     expect(activeFilterButton).toBe(filterButton);
   });
